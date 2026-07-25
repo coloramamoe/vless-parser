@@ -24,7 +24,7 @@ DOMAINS_PATH = SOURCE_ROOT / "domains.txt"
 DEFAULT_OUTPUT_PATH = REPO_ROOT / "githubmirror" / "whitelist-vless.txt"
 DEFAULT_RELIABLE_OUTPUT_PATH = REPO_ROOT / "githubmirror" / "ru-sni-best-vless.txt"
 GITHUB_AUTH_HOSTS = {"github.com", "raw.githubusercontent.com", "api.github.com"}
-REPO_URL = "https://github.com/r2d4m0/vless-parser"
+REPO_URL = "https://github.com/coloramamoe/vless-parser"
 
 WHITELIST_SOURCES = [
     "https://raw.githubusercontent.com/igareck/vpn-configs-for-russia/refs/heads/main/WHITE-CIDR-RU-all.txt",
