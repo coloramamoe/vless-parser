@@ -1,7 +1,7 @@
 # profile-title: VLESS Parser | RU SNI Best
 # profile-update-interval: 9
-# profile-web-page-url: https://github.com/r2d4m0/vless-parser
-# profile-desc: RU-SNI shortlist; Parsed by VLESS Parser; Updated: 2026-07-25 06:33 UTC
+# profile-web-page-url: https://github.com/coloramamoe/vless-parser
+# profile-desc: RU-SNI shortlist; Parsed by VLESS Parser; Updated: 2026-07-25 06:59 UTC
 # profile-count: 200
 
 vless://15e0833c-08ad-47f3-bf80-60c2a47a6774@red-fhmq5ehr3ievlnabv8l2.concept7.ru:443?security=reality&encryption=none&pbk=KEZ93Y9VgoirI18wIpcfS3z8I9GiaiFe-GKqGdEPMmg&headerType=none&spx=%2F&type=tcp&flow=xtls-rprx-vision&sni=api-maps.yandex.ru&sid=4e07408562be&fp=chrome#%F0%9F%87%B1%F0%9F%87%B9%20Lithuania%20%7C%20%F0%9F%8C%90%20%7C%20%5B%2ACIDR%5D%20YA
