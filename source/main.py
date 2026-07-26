@@ -24,23 +24,11 @@ from urllib3.util.retry import Retry
 SOURCE_ROOT = Path(__file__).resolve().parent
 REPO_ROOT = SOURCE_ROOT.parent
 DOMAINS_PATH = SOURCE_ROOT / "domains.txt"
+SOURCES_PATH = SOURCE_ROOT / "sources.txt"
 DEFAULT_OUTPUT_PATH = REPO_ROOT / "githubmirror" / "whitelist-vless.txt"
 DEFAULT_RELIABLE_OUTPUT_PATH = REPO_ROOT / "githubmirror" / "ru-sni-best-vless.txt"
 GITHUB_AUTH_HOSTS = {"github.com", "raw.githubusercontent.com", "api.github.com"}
 REPO_URL = "https://github.com/coloramamoe/vless-parser"
-
-WHITELIST_SOURCES = [
-    "https://raw.githubusercontent.com/igareck/vpn-configs-for-russia/refs/heads/main/WHITE-CIDR-RU-all.txt",
-    "https://raw.githubusercontent.com/igareck/vpn-configs-for-russia/refs/heads/main/WHITE-SNI-RU-all.txt",
-    "https://raw.githubusercontent.com/igareck/vpn-configs-for-russia/refs/heads/main/WHITE-CIDR-RU-checked.txt",
-    "https://raw.githubusercontent.com/igareck/vpn-configs-for-russia/refs/heads/main/Vless-Reality-White-Lists-Rus-Mobile.txt",
-    "https://raw.githubusercontent.com/zieng2/wl/refs/heads/main/vless_universal.txt",
-    "https://raw.githubusercontent.com/zieng2/wl/main/vless_lite.txt",
-    "https://raw.githubusercontent.com/EtoNeYaProject/etoneyaproject.github.io/refs/heads/main/2",
-    "https://raw.githubusercontent.com/ByeWhiteLists/ByeWhiteLists2/refs/heads/main/ByeWhiteLists2.txt",
-    "https://white-lists.vercel.app/api/filter?code=RU",
-    "https://wlrus.lol/confs/selected.txt",
-]
 
 ALLOWED_PROTOCOL = "vless"
 ALLOWED_SECURITY = {"reality", "tls"}
@@ -97,6 +85,7 @@ GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN", "").strip()
 class GeneratorSettings:
     output_path: Path
     reliable_output_path: Path
+    dry_run: bool
     timeout: int
     max_attempts: int
     max_workers: int
@@ -289,7 +278,32 @@ def load_domains(path: Path) -> set[str]:
     return domains
 
 
+def load_sources(path: Path) -> list[str]:
+    if not path.exists():
+        raise FileNotFoundError(f"Sources file not found: {path}")
+
+    sources: list[str] = []
+    seen: set[str] = set()
+    for line_number, raw_line in enumerate(path.read_text(encoding="utf-8").splitlines(), start=1):
+        line = raw_line.strip()
+        if not line or line.startswith("#"):
+            continue
+        if not line.startswith(("http://", "https://")):
+            raise ValueError(
+                f"Invalid source URL on line {line_number} in {path}: {line!r}. "
+                "URLs must start with http:// or https://"
+            )
+        if line not in seen:
+            sources.append(line)
+            seen.add(line)
+
+    if not sources:
+        raise ValueError(f"Sources file is empty: {path}")
+    return sources
+
+
 RU_SNI_DOMAINS = load_domains(DOMAINS_PATH)
+WHITELIST_SOURCES = load_sources(SOURCES_PATH)
 
 
 def get_host_kind(host: str) -> str:
@@ -653,10 +667,10 @@ def has_expected_metadata(path: Path, profile: OutputProfile) -> bool:
     )
 
 
-def write_output(profile: OutputProfile, lines: list[str]) -> OutputSummary:
+def write_output(profile: OutputProfile, lines: list[str], dry_run: bool = False) -> OutputSummary:
     summary = compare_output(profile.path, lines)
     metadata_ok = has_expected_metadata(profile.path, profile)
-    if summary.changed or not metadata_ok:
+    if (summary.changed or not metadata_ok) and not dry_run:
         profile.path.parent.mkdir(parents=True, exist_ok=True)
         profile.path.write_text(render_output_text(profile, lines), encoding="utf-8")
         summary = OutputSummary(
@@ -707,6 +721,8 @@ def run(settings: GeneratorSettings) -> int:
         title="VLESS Parser | RU SNI Best",
         description="RU-SNI shortlist",
     )
+    if settings.dry_run:
+        print("[INFO] dry_run=yes")
 
     session = build_session(max_pool_size=max(settings.max_workers, len(WHITELIST_SOURCES)))
     results: list[SourceResult] = []
@@ -743,6 +759,7 @@ def run(settings: GeneratorSettings) -> int:
     base_summary = write_output(
         base_profile,
         [config.raw_uri for config in sorted_base_configs],
+        dry_run=settings.dry_run,
     )
     print_output_summary("base", base_summary)
 
@@ -750,6 +767,7 @@ def run(settings: GeneratorSettings) -> int:
         reliable_summary = write_output(
             reliable_profile,
             [config.raw_uri for config in reliable_configs],
+            dry_run=settings.dry_run,
         )
         print_output_summary("reliable", reliable_summary)
     else:
@@ -776,6 +794,11 @@ def parse_args() -> GeneratorSettings:
         "--reliable-output",
         default=str(DEFAULT_RELIABLE_OUTPUT_PATH),
         help="Output file path for stricter RU-SNI configs. Default: githubmirror/ru-sni-best-vless.txt",
+    )
+    parser.add_argument(
+        "--dry-run",
+        action="store_true",
+        help="Fetch and process sources without writing output files.",
     )
     parser.add_argument(
         "--timeout",
@@ -805,6 +828,7 @@ def parse_args() -> GeneratorSettings:
     return GeneratorSettings(
         output_path=Path(args.output).resolve(),
         reliable_output_path=Path(args.reliable_output).resolve(),
+        dry_run=args.dry_run,
         timeout=args.timeout,
         max_attempts=args.max_attempts,
         max_workers=max(1, args.max_workers),

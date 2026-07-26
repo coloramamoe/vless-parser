@@ -61,6 +61,39 @@ class TestSplitSubscriptionLines:
         assert main.decode_base64_subscription(encoded) is None
 
 
+class TestLoadSources:
+    def test_ignores_comments_and_duplicates_preserving_order(self, tmp_path: Path):
+        path = tmp_path / "sources.txt"
+        path.write_text(
+            "# preferred source first\n\nhttps://first.example/list\n"
+            "https://second.example/list\nhttps://first.example/list\n",
+            encoding="utf-8",
+        )
+
+        assert main.load_sources(path) == [
+            "https://first.example/list",
+            "https://second.example/list",
+        ]
+
+    @pytest.mark.parametrize("content", ["ftp://example.com/list\n", "example.com/list\n"])
+    def test_rejects_invalid_urls(self, tmp_path: Path, content: str):
+        path = tmp_path / "sources.txt"
+        path.write_text(content, encoding="utf-8")
+
+        with pytest.raises(ValueError, match="URLs must start"):
+            main.load_sources(path)
+
+    def test_rejects_missing_or_empty_file(self, tmp_path: Path):
+        missing_path = tmp_path / "missing.txt"
+        with pytest.raises(FileNotFoundError, match="Sources file not found"):
+            main.load_sources(missing_path)
+
+        empty_path = tmp_path / "empty.txt"
+        empty_path.write_text("# no sources\n\n", encoding="utf-8")
+        with pytest.raises(ValueError, match="Sources file is empty"):
+            main.load_sources(empty_path)
+
+
 class TestIsInsecureUri:
     @pytest.mark.parametrize(
         "query",
@@ -197,3 +230,13 @@ def _http_error(status: int):
     response = requests.Response()
     response.status_code = status
     return requests.exceptions.HTTPError(response=response)
+
+
+def test_dry_run_does_not_write_output(tmp_path: Path):
+    output_path = tmp_path / "whitelist-vless.txt"
+    profile = main.OutputProfile("base", output_path, "Test", "Test output")
+
+    summary = main.write_output(profile, [build_uri()], dry_run=True)
+
+    assert summary.changed is True
+    assert output_path.exists() is False

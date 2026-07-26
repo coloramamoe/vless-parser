@@ -28,14 +28,7 @@ fork https://github.com/AvenCores/goida-vpn-configs
 
 ## Источники
 
-Используются только whitelist-источники:
-- `WHITE-CIDR-RU-all.txt`
-- `WHITE-SNI-RU-all.txt`
-- `zieng2/wl`
-- `EtoNeYaProject`
-- `ByeWhiteLists2`
-- `white-lists.vercel.app`
-- `wlrus.lol`
+Используются только whitelist-источники из [`source/sources.txt`](./source/sources.txt). Добавляйте, удаляйте или меняйте URL в этом файле: один URL в строке. Пустые строки и строки с `#` в начале игнорируются; допустимы только URL, начинающиеся с `http://` или `https://`. Повторяющиеся URL отбрасываются с сохранением порядка — более ранний источник имеет приоритет при дедупликации конфигов.
 
 Если часть источников временно недоступна, parser продолжает работу по тем, которые ответили. Если не ответил ни один источник, существующий `githubmirror/whitelist-vless.txt` не перезаписывается.
 
@@ -47,6 +40,12 @@ cd <repo>
 python -m pip install -r source/requirements.txt
 echo GITHUB_TOKEN=<your_token> > .env
 python source/main.py
+```
+
+Проверить доступность источников и итоговую статистику без изменения файлов в `githubmirror/`:
+
+```bash
+python source/main.py --dry-run
 ```
 
 Файл результата:
@@ -85,6 +84,8 @@ githubmirror/whitelist-vless.txt   - итоговая whitelist VLESS-подпи
 githubmirror/ru-sni-best-vless.txt - shortlist более жёстко отобранных RU-SNI конфигов
 source/main.py                     - parser
 source/test_main.py                - тесты
+source/sources.txt                 - URL whitelist-источников в порядке приоритета
+source/domains.txt                 - домены для RU-SNI shortlist
 source/requirements.txt            - зависимости
 source/requirements-dev.txt        - зависимости для тестов
 ```
