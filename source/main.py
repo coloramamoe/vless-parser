@@ -9,9 +9,12 @@ from pathlib import Path
 from urllib.parse import parse_qsl, unquote, urlsplit
 
 import argparse
+import base64
+import binascii
 import html
 import os
 import re
+import time
 
 import requests
 from requests.adapters import HTTPAdapter
@@ -42,6 +45,14 @@ WHITELIST_SOURCES = [
 ALLOWED_PROTOCOL = "vless"
 ALLOWED_SECURITY = {"reality", "tls"}
 URI_PATTERN = re.compile(r"(vmess|vless|trojan|ss|ssr|tuic|hysteria|hysteria2)://")
+BASE64_PATTERN = re.compile(r"[A-Za-z0-9+/_-]+={0,2}")
+MIN_BASE64_LENGTH = 32
+UUID_PATTERN = re.compile(
+    r"\A[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\Z",
+    re.IGNORECASE,
+)
+RETRY_BACKOFF_SECONDS = 0.5
+NON_RETRYABLE_STATUS = frozenset({400, 401, 403, 404, 405, 410, 451})
 INSECURE_PATTERN = re.compile(
     r"(?:[?&;]|3%[Bb])(allowinsecure|allow_insecure|insecure)=(?:1|true|yes)(?:[&;#]|$|(?=\s|$))",
     re.IGNORECASE,
@@ -165,9 +176,16 @@ def build_request_headers(url: str) -> dict[str, str]:
     return headers
 
 
+def is_retryable_error(exc: requests.RequestException) -> bool:
+    response = getattr(exc, "response", None)
+    if response is None:
+        return True
+    return response.status_code not in NON_RETRYABLE_STATUS
+
+
 def fetch_text(url: str, session: requests.Session, timeout: int, max_attempts: int) -> str:
     last_error: Exception = RuntimeError("No attempts made")
-    for _ in range(max_attempts):
+    for attempt in range(max_attempts):
         try:
             response = session.get(
                 url,
@@ -178,6 +196,10 @@ def fetch_text(url: str, session: requests.Session, timeout: int, max_attempts: 
             return response.text
         except requests.RequestException as exc:
             last_error = exc
+            if not is_retryable_error(exc):
+                break
+            if attempt + 1 < max_attempts:
+                time.sleep(RETRY_BACKOFF_SECONDS * (attempt + 1))
     raise last_error
 
 
@@ -198,17 +220,41 @@ def format_fetch_error(exc: Exception) -> str:
     return str(exc)
 
 
+def decode_base64_subscription(data: str) -> str | None:
+    compact = "".join(data.split())
+    if len(compact) < MIN_BASE64_LENGTH or URI_PATTERN.search(data):
+        return None
+    if not BASE64_PATTERN.fullmatch(compact):
+        return None
+
+    padded = compact.replace("-", "+").replace("_", "/")
+    padded += "=" * (-len(padded) % 4)
+    try:
+        decoded = base64.b64decode(padded, validate=False).decode("utf-8", errors="replace")
+    except (ValueError, binascii.Error):
+        return None
+    return decoded if URI_PATTERN.search(decoded) else None
+
+
 def split_subscription_lines(data: str) -> list[str]:
+    decoded = decode_base64_subscription(data)
+    if decoded is not None:
+        data = decoded
+
     prepared = URI_PATTERN.sub(lambda match: f"\n{match.group(0)}", data)
     return [
-        line.strip()
-        for line in prepared.splitlines()
-        if line.strip() and not line.startswith("#")
+        stripped
+        for stripped in (line.strip() for line in prepared.splitlines())
+        if stripped and not stripped.startswith("#")
     ]
 
 
+def strip_fragment(uri: str) -> str:
+    return uri.split("#", 1)[0]
+
+
 def is_insecure_uri(uri: str) -> bool:
-    decoded = unquote(html.unescape(uri.strip()))
+    decoded = unquote(html.unescape(strip_fragment(uri.strip())))
     return bool(INSECURE_PATTERN.search(decoded))
 
 
@@ -254,6 +300,30 @@ def get_host_kind(host: str) -> str:
     return "ipv6" if parsed_ip.version == 6 else "ipv4"
 
 
+def is_routable_host(host: str) -> bool:
+    """Reject hosts that can never serve traffic from the public internet."""
+    normalized = host.strip().strip("[]").casefold()
+    if not normalized or normalized == "localhost" or normalized.endswith(".localhost"):
+        return False
+    try:
+        parsed_ip = ip_address(normalized)
+    except ValueError:
+        return "." in normalized
+    return not (
+        parsed_ip.is_private
+        or parsed_ip.is_loopback
+        or parsed_ip.is_link_local
+        or parsed_ip.is_multicast
+        or parsed_ip.is_reserved
+        or parsed_ip.is_unspecified
+    )
+
+
+def is_valid_user_id(value: str) -> bool:
+    """VLESS ids are UUIDs; anything else is a placeholder or a broken entry."""
+    return bool(UUID_PATTERN.match(value.strip()))
+
+
 def matches_domain(value: str, domains: set[str]) -> bool:
     normalized = normalize_domain(value)
     if not normalized:
@@ -293,6 +363,16 @@ def parse_vless_uri(
     if not parsed.username or not host or not port:
         return None, "missing_core_fields"
 
+    if not 0 < port <= 65535:
+        return None, "bad_port"
+
+    user_id = unquote(parsed.username).strip()
+    if not is_valid_user_id(user_id):
+        return None, "bad_uuid"
+
+    if not is_routable_host(host):
+        return None, "unroutable_host"
+
     params = {
         key.casefold(): value.strip()
         for key, value in parse_qsl(parsed.query, keep_blank_values=True)
@@ -300,6 +380,9 @@ def parse_vless_uri(
     security = params.get("security", "").casefold()
     if security not in ALLOWED_SECURITY:
         return None, "bad_security"
+
+    if security == "reality" and not params.get("pbk"):
+        return None, "reality_missing_pbk"
 
     sni = normalize_domain(params.get("sni"))
     host_header = normalize_domain(params.get("host"))
@@ -319,7 +402,7 @@ def parse_vless_uri(
         params.get("path", ""),
         (params.get("mode") or "").casefold(),
         (params.get("packetingencoding") or params.get("packetencoding") or "").casefold(),
-        unquote(parsed.username).strip(),
+        user_id.casefold(),
     )
     return (
         NormalizedConfig(

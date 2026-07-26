@@ -1,6 +1,6 @@
 # VLESS Parser
 
-[![Update CFG](https://github.com/r2d4m0/vless-parser/actions/workflows/auto_update.yml/badge.svg)](https://github.com/r2d4m0/vless-parser/actions/workflows/auto_update.yml)
+[![Update CFG](https://github.com/coloramamoe/vless-parser/actions/workflows/auto_update.yml/badge.svg)](https://github.com/coloramamoe/vless-parser/actions/workflows/auto_update.yml)
 
 Минималистичный `VLESS` parser для белых списков.
 fork https://github.com/AvenCores/goida-vpn-configs
@@ -11,9 +11,13 @@ fork https://github.com/AvenCores/goida-vpn-configs
 
 Что делает parser:
 - ходит только во внешние whitelist-источники
+- понимает как обычные, так и `base64`-подписки
 - оставляет только `vless://`
-- отбрасывает конфиги с `allowinsecure`
+- отбрасывает конфиги с `allowinsecure` (флаг ищется только в query, а не в `#remark`)
 - оставляет только `security=reality` или `security=tls`
+- требует `pbk` у `security=reality` — без него конфиг нерабочий
+- требует валидный `UUID` в качестве идентификатора
+- отбрасывает нероутабельные хосты: `localhost`, приватные, loopback и link-local адреса
 - требует наличие `sni` или `host`
 - удаляет дубли по серверным параметрам
 - сортирует основной файл стабильно, чтобы он не дёргался без причины
@@ -58,6 +62,13 @@ githubmirror/ru-sni-best-vless.txt
 python source/main.py --output githubmirror/whitelist-vless.txt --reliable-output githubmirror/ru-sni-best-vless.txt --timeout 8 --max-attempts 2 --max-workers 8 --reliable-limit 200
 ```
 
+## Тесты
+
+```bash
+python -m pip install -r source/requirements-dev.txt
+python -m pytest source/test_main.py -q
+```
+
 ## GitHub Actions
 
 Workflow в [.github/workflows/auto_update.yml](./.github/workflows/auto_update.yml) делает только две вещи:
@@ -73,7 +84,9 @@ Python-скрипт больше не пушит в git и не зависит �
 githubmirror/whitelist-vless.txt   - итоговая whitelist VLESS-подписка
 githubmirror/ru-sni-best-vless.txt - shortlist более жёстко отобранных RU-SNI конфигов
 source/main.py                     - parser
+source/test_main.py                - тесты
 source/requirements.txt            - зависимости
+source/requirements-dev.txt        - зависимости для тестов
 ```
 
 ## Примечание

@@ -25,7 +25,10 @@ jobs:
         run: python -m pip install --upgrade pip
 
       - name: Install dependencies
-        run: pip install --no-cache-dir -r source/requirements.txt
+        run: pip install --no-cache-dir -r source/requirements-dev.txt
+
+      - name: Run tests
+        run: python -m pytest source/test_main.py -q
 
       - name: Generate whitelist file
         run: python source/main.py
