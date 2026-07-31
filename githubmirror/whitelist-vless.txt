@@ -1,7 +1,8 @@
 # profile-title: VLESS Parser | Whitelist
 # profile-update-interval: 9
 # profile-web-page-url: https://github.com/coloramamoe/vless-parser
-# profile-desc: Whitelist VLESS configs; Parsed by VLESS Parser; Updated: 2026-07-31 16:25 UTC
+# profile-content-type: vless
+# profile-desc: Whitelist VLESS configs; Parsed by VLESS Parser; Updated: 2026-07-31 16:31 UTC
 # profile-count: 6853
 vless://f75814f6-8f81-4847-b792-168c41f2dc85@45.196.201.48:443?type=tcp&security=reality&encryption=none&flow=xtls-rprx-vision&fp=chrome&pbk=zii4nGNapnFKL6SN8GzWNqFlElBvUCUFUThEP0kFH04&sid=c6ef72e4635d15a5&sni=/?BIA_TELEGRAM@MARAMBASHI_MARAMBASHI_MARAMBASHI_MARAMBASHI#3000 | 🇵🇭 Philippines | VLESS | 📺 YT | TG: @YoutubeUnBlockRu
 vless://b12eebc2-369c-4f3c-96a0-a8bd150ca8d5@193.233.126.104:443?security=reality&type=tcp&packetEncoding=xudp&sni=00.img.avito.st&fp=firefox&flow=xtls-rprx-vision&sid=eb0cca7312345678&pbk=Lxs8Ruv2zHH0XW5EiQmuCaScfkGPCxWjW02YDWH8pyU&encryption=none#%F0%9F%87%B3%F0%9F%87%B1NL_55%7C201KB%2Fs%7CT001-260618

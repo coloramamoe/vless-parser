@@ -295,6 +295,7 @@ def header(title: str, desc: str, count: int) -> list[str]:
         f"# profile-title: {title}",
         "# profile-update-interval: 9",
         f"# profile-web-page-url: {REPO_URL}",
+        "# profile-content-type: vless",
         f"# profile-desc: {desc}; Parsed by VLESS Parser; "
         f"Updated: {datetime.now(UTC).strftime('%Y-%m-%d %H:%M UTC')}",
         f"# profile-count: {count}",
@@ -302,13 +303,14 @@ def header(title: str, desc: str, count: int) -> list[str]:
     ]
 
 
-def write(path: Path, content: str, title: str = "", desc: str = "") -> bool:
-    if title:
-        body = "\n".join(header(title, desc, len(content.splitlines()))) + content
-    else:
-        body = content
+def _stable(text: str) -> str:
+    return re.sub(r"Updated: [0-9-]+ [0-9:]+ UTC", "Updated: X", text)
+
+
+def write(path: Path, content: str, title: str, desc: str) -> bool:
+    body = "\n".join(header(title, desc, len(content.splitlines()))) + content
     body = body + ("\n" if body and not body.endswith("\n") else "")
-    if path.exists() and path.read_text(encoding="utf-8") == body:
+    if path.exists() and _stable(path.read_text(encoding="utf-8")) == _stable(body):
         return False
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(body, encoding="utf-8")
@@ -361,7 +363,8 @@ def main() -> int:
         write(MIRROR / "ru-sni-best-vless.txt", "\n".join(c.raw for c in best),
               "VLESS Parser | RU SNI", "RU-SNI shortlist")
 
-    print(f"done: {len(base)} vless, {len(best)} shortlist")
+    print(f"done: {len(fetched)}/{len(sources)} sources, "
+          f"{len(base)} vless, {len(best)} shortlist")
     return 0
 
 

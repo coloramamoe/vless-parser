@@ -1,7 +1,8 @@
 # profile-title: VLESS Parser | RU SNI
 # profile-update-interval: 9
 # profile-web-page-url: https://github.com/coloramamoe/vless-parser
-# profile-desc: RU-SNI shortlist; Parsed by VLESS Parser; Updated: 2026-07-31 16:25 UTC
+# profile-content-type: vless
+# profile-desc: RU-SNI shortlist; Parsed by VLESS Parser; Updated: 2026-07-31 16:31 UTC
 # profile-count: 200
 vless://15041021-33ff-447e-bdd2-5a6f226f5ba2@de3.vpn-club-service.ru:443?type=tcp&security=reality&encryption=none&flow=xtls-rprx-vision&fp=chrome&pbk=yDPh2enztmRE8NH294bVNoILyZaQmZnH1gBvrd9RGQo&sid=a1b2c3d4&sni=help.max.ru#%F0%9F%87%A9%F0%9F%87%AA%20DE%20%7C%20%E2%80%94%20%7C%2021%20%7C%20%40ByeWhiteLists2
 vless://eb13c182-d224-43b9-a25d-5f5ca751ae93@de.xtraxobot.ru:8443?type=tcp&encryption=none&security=reality&pbk=WlaEmqzcpciVL0merjOOfZ-Eas4ZTGT2Bd5E3aJrN2c&fp=chrome&sni=cdn.s3.yandex.net&sid=63772b60&spx=%25252525252525252525252F&flow=xtls-rprx-vision#%F0%9F%87%A9%F0%9F%87%AA%20DE%20%7C%20%E2%80%94%20%7C%20466%20%7C%20%40ByeWhiteLists2

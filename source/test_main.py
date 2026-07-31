@@ -244,7 +244,14 @@ class TestWrite:
         assert main.write(path, "a\nb\n", "Title", "desc") is False
         assert path.read_text(encoding="utf-8").startswith("# profile-title: Title")
 
-    def test_plain_file_has_no_header(self, tmp_path: Path):
-        path = tmp_path / "mirror.txt"
-        main.write(path, "vless://x@h:443?security=tls&sni=avito.ru")
-        assert path.read_text(encoding="utf-8").startswith("vless://")
+    def test_header_has_content_type(self, tmp_path: Path):
+        path = tmp_path / "out.txt"
+        main.write(path, "a\n", "Title", "desc")
+        assert "# profile-content-type: vless" in path.read_text(encoding="utf-8")
+
+    def test_unchanged_payload_preserves_old_file(self, tmp_path: Path):
+        path = tmp_path / "out.txt"
+        main.write(path, "a\nb\n", "Title", "desc")
+        original = path.read_text(encoding="utf-8")
+        assert main.write(path, "a\nb\n", "Title", "desc") is False
+        assert path.read_text(encoding="utf-8") == original
