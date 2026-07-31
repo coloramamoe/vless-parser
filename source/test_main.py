@@ -246,6 +246,14 @@ class FakeResp:
         yield from self.chunks
 
 
+    def test_earlier_source_wins_on_conflict(self):
+        first = parse(build_uri(fragment="AAA"))
+        second = parse(build_uri(fragment="BBB"))
+        assert first is not None and second is not None
+        merged = main.merge(main.merge({}, {first.key: first}), {second.key: second})
+        assert merged[first.key].raw == first.raw
+
+
 class TestFetch:
     def test_utf8_cyrillic_is_not_garbled(self, monkeypatch):
         payload = "vless://uuid@host:443?security=reality&sni=авито.рф"
@@ -279,3 +287,15 @@ class TestWrite:
         original = path.read_text(encoding="utf-8")
         assert main.write(path, "a\nb\n", "Title", "desc") is False
         assert path.read_text(encoding="utf-8") == original
+
+    def test_empty_content_does_not_overwrite(self, tmp_path: Path):
+        path = tmp_path / "out.txt"
+        main.write(path, "a\nb\n", "Title", "desc")
+        original = path.read_text(encoding="utf-8")
+        assert main.write(path, "", "Title", "desc") is False
+        assert path.read_text(encoding="utf-8") == original
+
+    def test_empty_content_creates_nothing(self, tmp_path: Path):
+        path = tmp_path / "out.txt"
+        assert main.write(path, "", "Title", "desc") is False
+        assert path.exists() is False

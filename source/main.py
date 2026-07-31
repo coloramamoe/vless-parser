@@ -245,6 +245,12 @@ def parse_vless(uri: str, source: str) -> Config | None:
                   q.get("path", ""), source)
 
 
+def merge(dst: dict, found: dict) -> dict:
+    for key, c in found.items():
+        dst.setdefault(key, c)
+    return dst
+
+
 def routable(host: str) -> bool:
     h = host.strip().strip("[]").casefold()
     if not h or h == "localhost" or h.endswith(".localhost"):
@@ -340,6 +346,8 @@ def _stable(text: str) -> str:
 
 
 def write(path: Path, content: str, title: str, desc: str) -> bool:
+    if not content:
+        return False
     body = "\n".join(header(title, desc, len(content.splitlines()))) + content
     body = body + ("\n" if body and not body.endswith("\n") else "")
     if path.exists() and _stable(path.read_text(encoding="utf-8")) == _stable(body):
@@ -388,7 +396,7 @@ def main() -> int:
             c = parse_vless(line, url)
             if c:
                 found[c.key] = c
-        vless.update(found)
+        vless = merge(vless, found)
         print(f"src {i}: {len(found)}/{len(cfgs)} vless")
 
     base = sorted(vless.values(), key=lambda c: (c.sni or c.host_header or c.host,
