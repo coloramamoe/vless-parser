@@ -294,7 +294,8 @@ def score(c: Config, ru_domains: set[str]) -> int:
     return v + source_bonus(c.source)
 
 
-def shortlist(configs: list[Config], domains: set[str], limit: int) -> list[Config]:
+def shortlist(configs: list[Config], domains: set[str], limit: int,
+              max_per_sni: int) -> list[Config]:
     best: dict[tuple[str, int, str], tuple[int, Config]] = {}
     for c in configs:
         if c.security != "reality" or c.transport not in TRANSPORT or not c.pbk or not c.sid:
@@ -307,7 +308,15 @@ def shortlist(configs: list[Config], domains: set[str], limit: int) -> list[Conf
         k = (c.host.casefold(), c.port, c.sni or c.host_header)
         if best.get(k, (-1, None))[0] < val:
             best[k] = (val, c)
-    out = [c for _, c in sorted(best.values(), key=lambda x: -x[0])]
+
+    by_sni: dict[str, list[tuple[int, Config]]] = {}
+    for val, c in best.values():
+        by_sni.setdefault(c.sni or c.host_header, []).append((val, c))
+
+    out = []
+    for entries in by_sni.values():
+        out.extend(c for _, c in sorted(entries, key=lambda x: -x[0])[:max_per_sni])
+    out.sort(key=lambda c: -score(c, domains))
     return out[:limit]
 
 
@@ -346,6 +355,7 @@ def main() -> int:
     ap = argparse.ArgumentParser(description="VLESS whitelist parser")
     ap.add_argument("--dry-run", action="store_true", help="don't write files")
     ap.add_argument("--limit", type=int, default=350, help="shortlist size")
+    ap.add_argument("--max-per-sni", type=int, default=8, help="shortlist cap per SNI")
     ap.add_argument("--workers", type=int, default=8)
     args = ap.parse_args()
 
@@ -368,6 +378,9 @@ def main() -> int:
 
     vless = {}
     for i, (url, cfgs) in sorted(fetched.items()):
+        if not cfgs:
+            print(f"src {i}: EMPTY (no configs found)")
+            continue
         found = {}
         for line in cfgs:
             if insecure(line):
@@ -380,7 +393,7 @@ def main() -> int:
 
     base = sorted(vless.values(), key=lambda c: (c.sni or c.host_header or c.host,
                                                  c.host, c.port, c.raw))
-    best = shortlist(list(vless.values()), known, args.limit)
+    best = shortlist(list(vless.values()), known, args.limit, args.max_per_sni)
 
     if not args.dry_run:
         write(MIRROR / "whitelist-vless.txt", "\n".join(c.raw for c in base),

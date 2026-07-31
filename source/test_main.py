@@ -199,23 +199,34 @@ class TestShortlist:
 
     def test_reality_without_sid_is_rejected(self):
         config = self._config("type=tcp&security=reality&pbk=abc&sni=avito.ru&fp=chrome")
-        assert main.shortlist([config], {"avito.ru"}, limit=10) == []
+        assert main.shortlist([config], {"avito.ru"}, limit=10, max_per_sni=8) == []
 
     def test_reality_with_sid_is_selected(self):
         config = self._config("type=tcp&security=reality&pbk=abc&sid=123456&sni=avito.ru&fp=chrome")
-        selected = main.shortlist([config], {"avito.ru"}, limit=10)
+        selected = main.shortlist([config], {"avito.ru"}, limit=10, max_per_sni=8)
         assert len(selected) == 1
 
     def test_non_ru_sni_is_not_selected(self):
         cfg = ("type=tcp&security=reality&pbk=abc&sid=123456"
                "&sni=google.com&fp=chrome")
         config = self._config(cfg)
-        assert main.shortlist([config], {"avito.ru"}, limit=10) == []
+        assert main.shortlist([config], {"avito.ru"}, limit=10, max_per_sni=8) == []
 
     def test_duplicates_are_deduped(self):
         one = self._config("type=tcp&security=reality&pbk=abc&sid=123456&sni=avito.ru&fp=chrome")
         two = self._config("type=ws&security=reality&pbk=abc&sid=123456&sni=avito.ru&fp=chrome")
-        assert len(main.shortlist([one, two], {"avito.ru"}, limit=10)) == 1
+        assert len(main.shortlist([one, two], {"avito.ru"}, limit=10, max_per_sni=8)) == 1
+
+    def test_per_sni_cap_limits_dominance(self):
+        configs = []
+        for i in range(10):
+            config = parse(build_uri(
+                host=f"s{i}.com",
+                query="type=tcp&security=reality&pbk=abc&sid=123456&sni=avito.ru&fp=chrome"))
+            assert config is not None
+            configs.append(config)
+        selected = main.shortlist(configs, {"avito.ru"}, limit=350, max_per_sni=3)
+        assert len(selected) == 3
 
 
 class FakeResp:

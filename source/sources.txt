@@ -9,3 +9,4 @@ https://raw.githubusercontent.com/ByeWhiteLists/ByeWhiteLists2/refs/heads/main/B
 https://wlrus.lol/confs/selected.txt
 https://s3c3.001.gpucloud.ru/wlr/wl.txt
 https://raw.githubusercontent.com/AvenCores/goida-vpn-configs/refs/heads/main/githubmirror/26.txt
+https://raw.githubusercontent.com/Diversan313/apex-parser/main/alive_bs.txt
