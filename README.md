@@ -17,7 +17,7 @@ https://raw.githubusercontent.com/coloramamoe/vless-parser/main/githubmirror/whi
 https://raw.githubusercontent.com/coloramamoe/vless-parser/main/githubmirror/ru-sni-best-vless.txt
 ```
 
-Источники: [`source/sources.txt`](source/sources.txt). Автообновление — GitHub Actions каждые 9 минут.
+Источники: [`source/sources.txt`](source/sources.txt). Автообновление — GitHub Actions каждые 30 минут.
 
 ## Запуск
 
