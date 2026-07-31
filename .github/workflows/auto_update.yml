@@ -2,7 +2,7 @@ name: Update CFG
 
 on:
   schedule:
-    - cron: "*/30 * * * *"
+    - cron: "*/9 * * * *"
   workflow_dispatch:
 
 concurrency:
