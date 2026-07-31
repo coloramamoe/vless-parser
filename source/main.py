@@ -345,7 +345,7 @@ def write(path: Path, content: str, title: str, desc: str) -> bool:
 def main() -> int:
     ap = argparse.ArgumentParser(description="VLESS whitelist parser")
     ap.add_argument("--dry-run", action="store_true", help="don't write files")
-    ap.add_argument("--limit", type=int, default=200, help="shortlist size")
+    ap.add_argument("--limit", type=int, default=350, help="shortlist size")
     ap.add_argument("--workers", type=int, default=8)
     args = ap.parse_args()
 
