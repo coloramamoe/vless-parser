@@ -78,6 +78,25 @@ def domain(value: str | None) -> str:
     return host if sep and host and port.isdigit() else d
 
 
+HOST_LABEL = re.compile(r"^[a-z0-9]([a-z0-9_-]*[a-z0-9])?$")
+
+
+def valid_host(value: str) -> bool:
+    v = value.strip(".").casefold()
+    if not v or len(v) > 253:
+        return False
+    if v.startswith("*."):
+        v = v[2:]
+    try:
+        ip_address(v)
+        return True
+    except ValueError:
+        pass
+    if "/" in v or "@" in v:
+        return False
+    return all(bool(HOST_LABEL.match(part)) for part in v.split("."))
+
+
 def matches_domain(value: str, known: set[str]) -> bool:
     d = domain(value)
     if d in known:
@@ -209,6 +228,10 @@ def parse_vless(uri: str, source: str) -> Config | None:
         return None
     sni, host_header = domain(q.get("sni")), domain(q.get("host"))
     if not sni and not host_header:
+        return None
+    if sni and not valid_host(sni):
+        return None
+    if host_header and not valid_host(host_header):
         return None
 
     transport = (q.get("type") or "tcp").casefold()
@@ -345,13 +368,15 @@ def main() -> int:
 
     vless = {}
     for i, (url, cfgs) in sorted(fetched.items()):
-        print(f"src {i}: {len(cfgs)} configs")
+        found = {}
         for line in cfgs:
             if insecure(line):
                 continue
             c = parse_vless(line, url)
-            if c and c.key not in vless:
-                vless[c.key] = c
+            if c:
+                found[c.key] = c
+        vless.update(found)
+        print(f"src {i}: {len(found)}/{len(cfgs)} vless")
 
     base = sorted(vless.values(), key=lambda c: (c.sni or c.host_header or c.host,
                                                  c.host, c.port, c.raw))

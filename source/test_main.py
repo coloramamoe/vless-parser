@@ -114,6 +114,19 @@ class TestParseVless:
     def test_tls_without_pbk_is_accepted(self):
         assert parse(build_uri(query="type=tcp&security=tls&sni=avito.ru")) is not None
 
+    @pytest.mark.parametrize(
+        "sni",
+        ["/?BIA_TELEGRAM@MARAMBASHI", "http://x", "a b", "-bad", "bad_", "b..d", "*"],
+    )
+    def test_garbage_sni_is_rejected(self, sni: str):
+        assert parse(build_uri(query=f"type=tcp&security=tls&sni={sni}")) is None
+
+    @pytest.mark.parametrize(
+        "sni", ["avito.ru", "sub.vk.com", "193.233.126.104", "*.avito.ru", "cdn_x.net"]
+    )
+    def test_valid_sni_is_accepted(self, sni: str):
+        assert parse(build_uri(query=f"type=tcp&security=tls&sni={sni}")) is not None
+
     def test_missing_security_is_rejected(self):
         assert parse(build_uri(query="type=tcp&sni=avito.ru")) is None
 
