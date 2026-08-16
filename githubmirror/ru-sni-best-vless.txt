@@ -2,7 +2,7 @@
 # profile-update-interval: 9
 # profile-web-page-url: https://github.com/coloramamoe/vless-parser
 # profile-content-type: vless
-# profile-desc: RU-SNI shortlist; Parsed by VLESS Parser; Updated: 2026-08-16 07:41 UTC
+# profile-desc: RU-SNI shortlist; Parsed by VLESS Parser; Updated: 2026-08-16 08:02 UTC
 # profile-count: 350
 vless://34a38f21-310e-4da5-b549-35076e16993c@finnode3.frost-api.com:443?encryption=none&flow=xtls-rprx-vision&security=reality&sni=eh.vk.com&pbk=SHIYN7zN9aFVxwKK-bIvDbhUgtHvlBhDi1qSl2sWwRw&sid=e7&type=tcp&headerType=none&fp=firefox#%F0%9F%87%AB%F0%9F%87%AE%20Finland%20%5B%2ACIDR%5D%20VK
 vless://34a38f21-310e-4da5-b549-35076e16993c@frabridge1.frost-api.com:443?&security=reality&flow=xtls-rprx-vision&pbk=SHIYN7zN9aFVxwKK-bIvDbhUgtHvlBhDi1qSl2sWwRw&sid=e7&fp=chrome&sni=max.ru&type=tcp&headerType=none&host=max.ru&path=%2F#%F0%9F%87%AB%F0%9F%87%B7%20France%20%5B%2ACIDR%5D%20VK
@@ -81,7 +81,7 @@ vless://05dc09d5-5c56-454b-a34e-6ef743d91e1a@switzerland.boot-lee.ru:8443?securi
 vless://9d440601-dafc-40fc-a844-f7328b303604@soskeynets.lockdwn.com:8443?security=reality&encryption=none&pbk=s0oqxG7re5zHdXnKJvIPkMlo35O33LgS7nR0XjKAZjo&headerType=none&fp=chrome&spx=/so82mwvi99lkj6w&type=tcp&sni=dzen.ru&sid=7951018c4b35#4Nika-55b43c332d
 vless://9d440601-dafc-40fc-a844-f7328b303604@us02hk.lockdwn.com:8443?security=reality&encryption=none&pbk=s0oqxG7re5zHdXnKJvIPkMlo35O33LgS7nR0XjKAZjo&headerType=none&fp=edge&spx=%2Fso82mwvi99lkj6w&type=tcp&sni=dzen.ru&sid=7951018c4b35#%5BOpenRay%5D%20%F0%9F%87%BA%F0%9F%87%B8%20US-24117
 vless://06bcd513-ef0b-4c0c-a03b-e25fcda66fe2@ch-gt-02.com:8443?flow=xtls-rprx-vision&security=reality&allowInsecure=0&encryption=none&type=tcp&sni=storage.yandex.net&sid=40ce08cf20c67003&fp=firefox&pbk=IdqrygjwHBEMCOamBl7a504TVk6uMAtTRj0xLWcFcxY&headerType=none#🇨🇭 CH | 45.195.137.48
-vless://aa5b231c-4e18-4ae6-b83c-a293f51c0dfa@de-dp-01.com:8443?security=reality&encryption=none&pbk=ISa-DZOI4LRRb9DHMFYm5oFqBXDjYzz0hVWUfWvzLmo&headerType=none&fp=chrome&type=tcp&flow=xtls-rprx-vision&sni=storage.yandex.net&sid=8d3293f0066e129a#canfingV2rayNG-386
+vless://aa5b231c-4e18-4ae6-b83c-a293f51c0dfa@de-dp-01.com:8443?security=reality&encryption=none&pbk=ISa-DZOI4LRRb9DHMFYm5oFqBXDjYzz0hVWUfWvzLmo&headerType=none&fp=chrome&type=tcp&flow=xtls-rprx-vision&sni=storage.yandex.net&sid=8d3293f0066e129a#canfingV2rayNG-387
 vless://356ccb34-22cc-4446-a137-072bc60d65ca@bypass.fr-gt-01.com:8443/?type=tcp&encryption=none&flow=xtls-rprx-vision&sni=storage.yandex.net&fp=chrome&security=reality&pbk=1oUeBtHH4DskTM_jCh-6enWRkFMDX9l1OU5kWYl4kxA&sid=f34818a561dfd1fe#%F0%9F%90%A9AarazV2ray
 vless://52faee73-e0fe-4661-992d-67259257170f@bypass.uk-gthost-01.com:8443/?type=tcp&encryption=none&flow=xtls-rprx-vision&sni=storage.yandex.net&fp=chrome&security=reality&pbk=dY9SNEllJMW63xo-JdXufhmjAxB_4uFw_QMjgufjiD8&sid=ea10cd5686751ec5#%F0%9F%90%BAAarazV2ray
 vless://43df00c9-f209-4773-b1cc-48e175bfb606@dp-hu-01.live:443/?type=tcp&encryption=none&flow=xtls-rprx-vision&sni=storage.yandex.net&fp=chrome&security=reality&pbk=7zd9mJilgjOrg_ohtw23Vmio-pdnYqeP_r-kiWt87Cg&sid=f4b4a6365558ea2e#%40Leecher56%20%2810%29
