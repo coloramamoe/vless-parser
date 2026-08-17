@@ -2,7 +2,7 @@
 # profile-update-interval: 9
 # profile-web-page-url: https://github.com/coloramamoe/vless-parser
 # profile-content-type: vless
-# profile-desc: RU-SNI shortlist; Parsed by VLESS Parser; Updated: 2026-08-17 05:09 UTC
+# profile-desc: RU-SNI shortlist; Parsed by VLESS Parser; Updated: 2026-08-17 05:53 UTC
 # profile-count: 350
 vless://16ab4d4a-fd81-4535-9b7b-346677226ce8@rg.serviceoda.ru:443/?type=tcp&encryption=none&security=reality&pbk=kQnmL_D7qUBBEhMt0y9m1C7FGM_rHJnf-Co5M1AryhE&fp=firefox&sni=ya.ru&sid=fbe37eb3d3&spx=%2F&flow=xtls-rprx-vision#%F0%9F%87%A7%F0%9F%87%B7%20Brazil%20%5B%2ACIDR%5D
 vless://16ab4d4a-fd81-4535-9b7b-346677226ce8@95.181.213.1:443?encryption=none&flow=xtls-rprx-vision&fp=firefox&pbk=kQnmL_D7qUBBEhMt0y9m1C7FGM_rHJnf-Co5M1AryhE&security=reality&sid=fbe37eb3d3&sni=ya.ru&type=tcp#%F0%9F%87%A7%F0%9F%87%B7%20Brazil%20%5B%2ACIDR%5D
@@ -78,8 +78,8 @@ vless://5e19b3c8-c1dc-4163-95e2-895319c15d6c@nl2.techdatacloud.org:443?type=tcp&
 vless://5e19b3c8-c1dc-4163-95e2-895319c15d6c@multi.techdatacloud.org:443?type=tcp&security=reality&encryption=none&flow=xtls-rprx-vision&fp=firefox&pbk=tEisYGZCPOSXwo27_yQHOL5hz_9wCt0TDrtwajXXjUA&sid=0e154760&sni=storage.yandex.net&spx=/#2791 | 🌐 Unknown | VLESS | TG: @YoutubeUnBlockRu
 vless://5e19b3c8-c1dc-4163-95e2-895319c15d6c@de.techdatacloud.org:443?type=tcp&security=reality&encryption=none&flow=xtls-rprx-vision&fp=firefox&pbk=p3sQ8oByv8AXIm2jaOdFvAmxTeMGjr9uwCqyFvHpJz0&sid=d6c4636b81237396&sni=storage.yandex.net&spx=/#7553 | 🇩🇪 Germany | VLESS | 📺 YT | TG: @YoutubeUnBlockRu
 vless://5e19b3c8-c1dc-4163-95e2-895319c15d6c@ru-at.techdatacloud.org:443?type=tcp&security=reality&encryption=none&flow=xtls-rprx-vision&fp=firefox&pbk=PM__cMUtCn3sMyH5mfQ8Ti6USaqHcHsli9CzVXt0W10&sid=c142fd81e522ccf9&sni=storage.yandex.net&spx=/#7654 | 🇦🇹 Austria | VLESS | 📺 YT | TG: @YoutubeUnBlockRu
+vless://aa5b231c-4e18-4ae6-b83c-a293f51c0dfa@de-dp-01.com:8443?security=reality&type=tcp&packetEncoding=xudp&sni=storage.yandex.net&fp=chrome&flow=xtls-rprx-vision&sid=8d3293f0066e129a&pbk=ISa-DZOI4LRRb9DHMFYm5oFqBXDjYzz0hVWUfWvzLmo&encryption=none#🇩🇪 DE | 154.222.9.157
 vless://06bcd513-ef0b-4c0c-a03b-e25fcda66fe2@ch-gt-02.com:8443?flow=xtls-rprx-vision&security=reality&allowInsecure=0&encryption=none&type=tcp&sni=storage.yandex.net&sid=40ce08cf20c67003&fp=firefox&pbk=IdqrygjwHBEMCOamBl7a504TVk6uMAtTRj0xLWcFcxY&headerType=none#🇨🇭 CH | 45.195.137.48
-vless://aa5b231c-4e18-4ae6-b83c-a293f51c0dfa@de-dp-01.com:8443?security=reality&encryption=none&pbk=ISa-DZOI4LRRb9DHMFYm5oFqBXDjYzz0hVWUfWvzLmo&headerType=none&fp=chrome&type=tcp&flow=xtls-rprx-vision&sni=storage.yandex.net&sid=8d3293f0066e129a#canfingV2rayNG-376
 vless://356ccb34-22cc-4446-a137-072bc60d65ca@bypass.fr-gt-01.com:8443/?type=tcp&encryption=none&flow=xtls-rprx-vision&sni=storage.yandex.net&fp=chrome&security=reality&pbk=1oUeBtHH4DskTM_jCh-6enWRkFMDX9l1OU5kWYl4kxA&sid=f34818a561dfd1fe#%F0%9F%90%A9AarazV2ray
 vless://52faee73-e0fe-4661-992d-67259257170f@bypass.uk-gthost-01.com:8443/?type=tcp&encryption=none&flow=xtls-rprx-vision&sni=storage.yandex.net&fp=chrome&security=reality&pbk=dY9SNEllJMW63xo-JdXufhmjAxB_4uFw_QMjgufjiD8&sid=ea10cd5686751ec5#%F0%9F%90%BAAarazV2ray
 vless://70e20b2e-3b1f-4c25-9a3d-9240570391bb@laoye.in-gect.fun:2053?type=tcp&security=reality&encryption=none&flow=xtls-rprx-vision&fp=edge&pbk=cGVu5j95KoeHBkWXveyTKolORbdvZm9g1T6yyo64ZBg&sid=d26f4703cdd30f4e&sni=vk.ru&packetEncoding=none#1208 | 🌐 Unknown | 🏳️ SNI-VK | VLESS | TG: @YoutubeUnBlockRu
