@@ -2,7 +2,7 @@
 # profile-update-interval: 9
 # profile-web-page-url: https://github.com/coloramamoe/vless-parser
 # profile-content-type: vless
-# profile-desc: RU-SNI shortlist; Parsed by VLESS Parser; Updated: 2026-08-18 05:53 UTC
+# profile-desc: RU-SNI shortlist; Parsed by VLESS Parser; Updated: 2026-08-18 06:36 UTC
 # profile-count: 350
 vless://fc07967d-925b-4246-a535-9527a8242a16@217.198.169.86:443?encryption=none&extra=null&path=%2Fwk7Lj2YbQfCoLCnY5dZ3&pbk=h5rOWssRWMnFJ0Ka0-PwBwwg3PMPifPShXutXEoj2QM&security=reality&sid=b8ac5fcfceca&sni=avatars.mds.yandex.net&type=xhttp&fp=safari#%F0%9F%87%B7%F0%9F%87%BA%20Russia%20%7C%20%5B%2ACIDR%5D%20YA
 vless://15041021-33ff-447e-bdd2-5a6f226f5ba2@de3.vpn-club-service.ru:443?type=tcp&security=reality&flow=xtls-rprx-vision&fp=chrome&pbk=yDPh2enztmRE8NH294bVNoILyZaQmZnH1gBvrd9RGQo&sid=a1b2c3d4&sni=help.max.ru&path=&host=#%F0%9F%87%A9%F0%9F%87%AA%20DE%20%7C%20%E2%80%94%20%7C%2028%20%7C%20%40ByeWhiteLists2
@@ -64,7 +64,7 @@ vless://5e19b3c8-c1dc-4163-95e2-895319c15d6c@ru-at.techdatacloud.org:443?type=tc
 vless://5e19b3c8-c1dc-4163-95e2-895319c15d6c@de.techdatacloud.org:443?type=tcp&security=reality&encryption=none&flow=xtls-rprx-vision&fp=firefox&pbk=p3sQ8oByv8AXIm2jaOdFvAmxTeMGjr9uwCqyFvHpJz0&sid=d6c4636b81237396&sni=storage.yandex.net#6017 | 🇩🇪 Germany | 🏳️ SNI-Yandex | VLESS | 📺 YT | TG: @YoutubeUnBlockRu
 vless://5e19b3c8-c1dc-4163-95e2-895319c15d6c@nl2.techdatacloud.org:443?type=tcp&security=reality&encryption=none&flow=xtls-rprx-vision&fp=firefox&pbk=sfqx3Ie9Php87bfw3vPHRBizjWZje61abU3F-xNqxi4&sid=108da5a6fad4da65&sni=storage.yandex.net#7523 | 🌐 Unknown | 🏳️ SNI-Yandex | VLESS | TG: @YoutubeUnBlockRu
 vless://06bcd513-ef0b-4c0c-a03b-e25fcda66fe2@ch-gt-02.com:8443?flow=xtls-rprx-vision&security=reality&allowInsecure=0&encryption=none&type=tcp&sni=storage.yandex.net&sid=40ce08cf20c67003&fp=firefox&pbk=IdqrygjwHBEMCOamBl7a504TVk6uMAtTRj0xLWcFcxY&headerType=none#🇨🇭 CH | 45.195.137.48
-vless://aa5b231c-4e18-4ae6-b83c-a293f51c0dfa@de-dp-01.com:8443?security=reality&encryption=none&pbk=ISa-DZOI4LRRb9DHMFYm5oFqBXDjYzz0hVWUfWvzLmo&headerType=none&fp=chrome&type=tcp&flow=xtls-rprx-vision&sni=storage.yandex.net&sid=8d3293f0066e129a#canfingV2rayNG-336
+vless://aa5b231c-4e18-4ae6-b83c-a293f51c0dfa@de-dp-01.com:8443?security=reality&encryption=none&pbk=ISa-DZOI4LRRb9DHMFYm5oFqBXDjYzz0hVWUfWvzLmo&headerType=none&fp=chrome&type=tcp&flow=xtls-rprx-vision&sni=storage.yandex.net&sid=8d3293f0066e129a#canfingV2rayNG-316
 vless://356ccb34-22cc-4446-a137-072bc60d65ca@bypass.fr-gt-01.com:8443/?type=tcp&encryption=none&flow=xtls-rprx-vision&sni=storage.yandex.net&fp=chrome&security=reality&pbk=1oUeBtHH4DskTM_jCh-6enWRkFMDX9l1OU5kWYl4kxA&sid=f34818a561dfd1fe#%F0%9F%90%A9AarazV2ray
 vless://52faee73-e0fe-4661-992d-67259257170f@bypass.uk-gthost-01.com:8443/?type=tcp&encryption=none&flow=xtls-rprx-vision&sni=storage.yandex.net&fp=chrome&security=reality&pbk=dY9SNEllJMW63xo-JdXufhmjAxB_4uFw_QMjgufjiD8&sid=ea10cd5686751ec5#%F0%9F%90%BAAarazV2ray
 vless://4f30ab52-449c-4068-85a8-ef3237539d68@amv.vpnfreedom.tech:443?type=tcp&security=reality&sni=yandex.ru&fp=firefox&flow=xtls-rprx-vision&pbk=UXqXYG9Ud1xbwWGahnnI8Nl13VWE0FT1HuNQLfO-1yU&sid=43#TCP%2C%20%D0%AF%D0%BD%D0%B4%D0%B5%D0%BA%D1%81%20%5BV.O.I.D%5D
