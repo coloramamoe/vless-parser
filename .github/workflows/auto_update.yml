@@ -37,7 +37,13 @@ jobs:
           gzip -dc "$RUNNER_TEMP/mihomo.gz" > "$RUNNER_TEMP/mihomo"
           chmod +x "$RUNNER_TEMP/mihomo"
       - name: Update feeds
-        run: go run ./src --check --mihomo "$RUNNER_TEMP/mihomo"
+        run: |
+          if ! go run ./src --check --mihomo "$RUNNER_TEMP/mihomo" > "$RUNNER_TEMP/update.log" 2>&1; then
+            cat "$RUNNER_TEMP/update.log"
+            echo "::error::$(tail -n 1 "$RUNNER_TEMP/update.log")"
+            exit 1
+          fi
+          cat "$RUNNER_TEMP/update.log"
       - name: Push
         run: |
           git add githubmirror/
