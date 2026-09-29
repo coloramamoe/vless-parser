@@ -1,6 +1,13 @@
 name: Update
 
 on:
+  push:
+    branches: [main]
+    paths:
+      - "*.go"
+      - "go.mod"
+      - "source/**"
+      - ".github/workflows/auto_update.yml"
   schedule:
     - cron: "17 * * * *"
   workflow_dispatch:
