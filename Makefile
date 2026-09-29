@@ -1,16 +1,17 @@
 .PHONY: run dry test lint check-links
 
 run:
-	python source/main.py
+	go run . --check
 
 dry:
-	python source/main.py --dry-run
+	go run . --dry-run
 
 test:
-	pytest source/ -q
+	go test ./...
 
 lint:
-	ruff check source/
+	go vet ./...
+	test -z "$$(gofmt -l .)"
 
 check-links:
-	python source/check_links.py
+	go run . --check-links

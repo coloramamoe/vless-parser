@@ -1,51 +1,42 @@
-name: Update CFG
+name: Update
 
 on:
   schedule:
-    - cron: "*/9 * * * *"
+    - cron: "17 * * * *"
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 concurrency:
-  group: cfg-update
-  cancel-in-progress: false
+  group: update
+  cancel-in-progress: true
 
 jobs:
-  update-whitelist-file:
+  update:
     runs-on: ubuntu-latest
     timeout-minutes: 10
 
-    permissions:
-      contents: write
-
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v6
-
-      - name: Set up Python
-        uses: actions/setup-python@v6
+      - uses: actions/checkout@v6
+      - uses: actions/setup-go@v6
         with:
-          python-version: "3.12"
-
-      - name: Upgrade pip
-        run: python -m pip install --upgrade pip
-
-      - name: Install dependencies
-        run: pip install --no-cache-dir -r source/requirements-dev.txt
-
-      - name: Run tests
-        run: python -m pytest source/test_main.py -q
-
-      - name: Lint
-        run: ruff check source/
-
-      - name: Generate whitelist file
-        run: python source/main.py
-
-      - name: Commit and push if changed
+          go-version: "1.27.1"
+          cache: false
+      - name: Mihomo
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          curl -fsSL --retry 3 -o "$RUNNER_TEMP/mihomo.gz" https://github.com/MetaCubeX/mihomo/releases/download/v1.19.31/mihomo-linux-amd64-v1.19.31.gz
+          echo "d5e74bbddbdfff49a1aef7775bf5911da59f0d7196ed509a0ac914b3653dd5f1  $RUNNER_TEMP/mihomo.gz" | sha256sum -c -
+          gzip -dc "$RUNNER_TEMP/mihomo.gz" > "$RUNNER_TEMP/mihomo"
+          chmod +x "$RUNNER_TEMP/mihomo"
+      - run: go test ./...
+      - name: Update feeds
+        run: go run . --check --mihomo "$RUNNER_TEMP/mihomo"
+      - name: Push
+        run: |
           git add githubmirror/
           git diff --cached --quiet && exit 0
-          git commit -m "chore: update cfg"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "update"
           git push

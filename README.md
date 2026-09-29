@@ -1,33 +1,22 @@
-# VLESS Parser
+# vless-parser
 
-[![Update CFG](https://github.com/coloramamoe/vless-parser/actions/workflows/auto_update.yml/badge.svg)](https://github.com/coloramamoe/vless-parser/actions/workflows/auto_update.yml)
-[![CI](https://github.com/coloramamoe/vless-parser/actions/workflows/ci.yml/badge.svg)](https://github.com/coloramamoe/vless-parser/actions/workflows/ci.yml)
+VLESS subscriptions from public sources. Written in Go; live checks use Mihomo.
 
-Парсер VLESS-подписок: тянет whitelist-источники, отбрасывает битые и небезопасные конфиги и публикует готовые подписки в `githubmirror/`.
+| Feed | Use |
+| --- | --- |
+| [full.txt](https://raw.githubusercontent.com/coloramamoe/vless-parser/main/githubmirror/full.txt) | All valid links |
+| [whitelist-vless.txt](https://raw.githubusercontent.com/coloramamoe/vless-parser/main/githubmirror/whitelist-vless.txt) | SNI from the [domain list](source/domains.txt) |
+| [ru-sni-best-vless.txt](https://raw.githubusercontent.com/coloramamoe/vless-parser/main/githubmirror/ru-sni-best-vless.txt) | Short RU shortlist |
+| [internet.txt](https://raw.githubusercontent.com/coloramamoe/vless-parser/main/githubmirror/internet.txt) | Passed two HTTP checks through the proxy |
 
-## Что делает
+Checks run from GitHub Actions. Reachability from your network may differ. Empty runs keep the last nonempty feed.
 
-- `whitelist-vless.txt` — все валидные `vless://` (reality/tls, корректный UUID, без `allowinsecure`)
-- `ru-sni-best-vless.txt` — shortlist: reality с русским SNI и `sid`, без `fp=randomized` и IPv6
-- понимает plain text и base64-подписки, удаляет дубли
+Sources: [source/sources.txt](source/sources.txt). Updates run hourly.
 
-## Подписки
-
-```text
-https://raw.githubusercontent.com/coloramamoe/vless-parser/main/githubmirror/whitelist-vless.txt
-https://raw.githubusercontent.com/coloramamoe/vless-parser/main/githubmirror/ru-sni-best-vless.txt
+```sh
+go run . --dry-run
+go run . --check --mihomo /path/to/mihomo
+go test ./...
 ```
 
-Источники: [`source/sources.txt`](source/sources.txt). Автообновление — GitHub Actions каждые 9 минут.
-
-## Запуск
-
-```bash
-pip install -r source/requirements.txt
-python source/main.py            # обновить файлы
-python source/main.py --dry-run  # статистика без записи
-```
-
-Тесты и lint: `pip install -r source/requirements-dev.txt`, затем `python -m pytest source/test_main.py -q`, `ruff check source/` и `python source/check_links.py`.
-
-Лицензия: BSD-3-Clause.
+BSD-3-Clause.
