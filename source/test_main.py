@@ -299,3 +299,20 @@ class TestWrite:
         path = tmp_path / "out.txt"
         assert main.write(path, "", "Title", "desc") is False
         assert path.exists() is False
+
+
+class TestMain:
+    def test_no_valid_configs_fails_without_overwriting_outputs(self, monkeypatch, tmp_path: Path):
+        original = "previous subscription\n"
+        for name in ("whitelist-vless.txt", "ru-sni-best-vless.txt"):
+            (tmp_path / name).write_text(original, encoding="utf-8")
+
+        monkeypatch.setattr(main, "lines", lambda _: ["https://example.com/subscription.txt"])
+        monkeypatch.setattr(main, "domains", lambda _: set())
+        monkeypatch.setattr(main, "fetch", lambda *_: "no configs")
+        monkeypatch.setattr(main, "MIRROR", tmp_path)
+        monkeypatch.setattr(sys, "argv", ["main.py"])
+
+        assert main.main() == 1
+        for name in ("whitelist-vless.txt", "ru-sni-best-vless.txt"):
+            assert (tmp_path / name).read_text(encoding="utf-8") == original

@@ -1,6 +1,7 @@
 # VLESS Parser
 
 [![Update CFG](https://github.com/coloramamoe/vless-parser/actions/workflows/auto_update.yml/badge.svg)](https://github.com/coloramamoe/vless-parser/actions/workflows/auto_update.yml)
+[![CI](https://github.com/coloramamoe/vless-parser/actions/workflows/ci.yml/badge.svg)](https://github.com/coloramamoe/vless-parser/actions/workflows/ci.yml)
 
 Парсер VLESS-подписок: тянет whitelist-источники, отбрасывает битые и небезопасные конфиги и публикует готовые подписки в `githubmirror/`.
 
@@ -17,7 +18,7 @@ https://raw.githubusercontent.com/coloramamoe/vless-parser/main/githubmirror/whi
 https://raw.githubusercontent.com/coloramamoe/vless-parser/main/githubmirror/ru-sni-best-vless.txt
 ```
 
-Источники: [`source/sources.txt`](source/sources.txt). Автообновление — GitHub Actions каждые 30 минут.
+Источники: [`source/sources.txt`](source/sources.txt). Автообновление — GitHub Actions каждые 9 минут.
 
 ## Запуск
 
@@ -27,6 +28,6 @@ python source/main.py            # обновить файлы
 python source/main.py --dry-run  # статистика без записи
 ```
 
-Тесты и lint: `pip install -r source/requirements-dev.txt`, затем `python -m pytest source/test_main.py -q` и `ruff check source/`.
+Тесты и lint: `pip install -r source/requirements-dev.txt`, затем `python -m pytest source/test_main.py -q`, `ruff check source/` и `python source/check_links.py`.
 
 Лицензия: BSD-3-Clause.

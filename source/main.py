@@ -399,6 +399,10 @@ def main() -> int:
         vless = merge(vless, found)
         print(f"src {i}: {len(found)}/{len(cfgs)} vless")
 
+    if not vless:
+        print("no valid VLESS configs found; keeping existing output files")
+        return 1
+
     base = sorted(vless.values(), key=lambda c: (c.sni or c.host_header or c.host,
                                                  c.host, c.port, c.raw))
     best = shortlist(list(vless.values()), known, args.limit, args.max_per_sni)

@@ -1,4 +1,4 @@
-.PHONY: run dry test lint
+.PHONY: run dry test lint check-links
 
 run:
 	python source/main.py
@@ -11,3 +11,6 @@ test:
 
 lint:
 	ruff check source/
+
+check-links:
+	python source/check_links.py
