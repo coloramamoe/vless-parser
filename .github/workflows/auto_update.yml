@@ -4,12 +4,12 @@ on:
   push:
     branches: [main]
     paths:
-      - "*.go"
+      - "src/**"
       - "go.mod"
-      - "source/**"
+      - "sources/**"
       - ".github/workflows/auto_update.yml"
   schedule:
-    - cron: "17 * * * *"
+    - cron: "*/9 * * * *"
   workflow_dispatch:
 
 permissions:
@@ -36,9 +36,8 @@ jobs:
           echo "d5e74bbddbdfff49a1aef7775bf5911da59f0d7196ed509a0ac914b3653dd5f1  $RUNNER_TEMP/mihomo.gz" | sha256sum -c -
           gzip -dc "$RUNNER_TEMP/mihomo.gz" > "$RUNNER_TEMP/mihomo"
           chmod +x "$RUNNER_TEMP/mihomo"
-      - run: go test ./...
       - name: Update feeds
-        run: go run . --check --mihomo "$RUNNER_TEMP/mihomo"
+        run: go run ./src --check --mihomo "$RUNNER_TEMP/mihomo"
       - name: Push
         run: |
           git add githubmirror/

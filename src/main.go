@@ -27,6 +27,18 @@ var (
 	protocol = regexp.MustCompile(`(?i)(?:vmess|vless|trojan|ssr?|tuic|hysteria2?)://`)
 	uuidRE   = regexp.MustCompile(`(?i)^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$`)
 	hostRE   = regexp.MustCompile(`^[a-z0-9](?:[a-z0-9_-]*[a-z0-9])?$`)
+	reserved = []netip.Prefix{
+		netip.MustParsePrefix("0.0.0.0/8"),
+		netip.MustParsePrefix("100.64.0.0/10"),
+		netip.MustParsePrefix("192.0.0.0/24"),
+		netip.MustParsePrefix("192.0.2.0/24"),
+		netip.MustParsePrefix("192.88.99.0/24"),
+		netip.MustParsePrefix("198.18.0.0/15"),
+		netip.MustParsePrefix("198.51.100.0/24"),
+		netip.MustParsePrefix("203.0.113.0/24"),
+		netip.MustParsePrefix("240.0.0.0/4"),
+		netip.MustParsePrefix("2001:db8::/32"),
+	}
 )
 
 type config struct {
@@ -87,7 +99,15 @@ func routable(v string) bool {
 		return false
 	}
 	if ip, err := netip.ParseAddr(v); err == nil {
-		return ip.IsGlobalUnicast() && !ip.IsPrivate() && !ip.IsLoopback() && !ip.IsLinkLocalUnicast()
+		if !ip.IsGlobalUnicast() || ip.IsPrivate() || ip.IsLoopback() || ip.IsLinkLocalUnicast() {
+			return false
+		}
+		for _, block := range reserved {
+			if block.Contains(ip) {
+				return false
+			}
+		}
+		return true
 	}
 	return strings.Contains(v, ".")
 }
@@ -105,6 +125,40 @@ func domains(path string) (map[string]bool, error) {
 		}
 	}
 	return out, nil
+}
+
+func loadDomains(root string, client *http.Client) (map[string]bool, error) {
+	known, err := domains(filepath.Join(root, "sources/domains.txt"))
+	if err != nil {
+		return nil, err
+	}
+	sources, err := lines(filepath.Join(root, "sources/domains.urls"))
+	if err != nil {
+		return nil, err
+	}
+	for i, source := range sources {
+		body, err := fetch(context.Background(), client, source)
+		if err != nil {
+			fmt.Printf("domain src %d: %v\n", i+1, err)
+			continue
+		}
+		added := 0
+		for _, raw := range strings.Split(body, "\n") {
+			d := strings.TrimPrefix(domain(raw), "*.")
+			if !strings.Contains(d, ".") || !validHost(d) {
+				continue
+			}
+			if _, err := netip.ParseAddr(d); err == nil {
+				continue
+			}
+			if !matchesDomain(d, known) {
+				known[d] = true
+				added++
+			}
+		}
+		fmt.Printf("domain src %d: %d added\n", i+1, added)
+	}
+	return known, nil
 }
 
 func matchesDomain(v string, known map[string]bool) bool {
@@ -206,11 +260,16 @@ func parseVLESS(raw, source string) (config, bool) {
 	if insecure(q) {
 		return config{}, false
 	}
+	for _, values := range q {
+		if len(values) > 1 {
+			return config{}, false
+		}
+	}
 	security := strings.ToLower(q.Get("security"))
 	if security != "reality" && security != "tls" {
 		return config{}, false
 	}
-	if security == "reality" && q.Get("pbk") == "" {
+	if security == "reality" && !validReality(q.Get("pbk"), q.Get("sid")) {
 		return config{}, false
 	}
 	sni, hostHeader := domain(q.Get("sni")), domain(q.Get("host"))
@@ -330,17 +389,23 @@ func shortlist(all []config, known map[string]bool, limit, perSNI int) []config 
 	return out
 }
 
-func candidates(all, best []config, known map[string]bool, limit int) []config {
+func candidates(all, best, previous []config, known map[string]bool, limit, round int) []config {
 	seen, hosts, snis := make(map[string]bool), make(map[string]int), make(map[string]int)
 	var out []config
 	take := func(c config) {
-		if seen[c.key] || hosts[c.host] >= 3 || snis[c.sni] >= 12 || !probeSupported(c) {
+		if len(out) >= limit || seen[c.key] || hosts[c.host] >= 3 || snis[c.sni] >= 12 || !probeSupported(c) {
 			return
 		}
 		seen[c.key] = true
 		hosts[c.host]++
 		snis[c.sni]++
 		out = append(out, c)
+	}
+	for _, c := range previous {
+		take(c)
+		if len(out) >= limit/2 {
+			break
+		}
 	}
 	for _, c := range best {
 		take(c)
@@ -367,7 +432,8 @@ func candidates(all, best []config, known map[string]bool, limit int) []config {
 		for _, source := range sources {
 			if index < len(bySource[source]) {
 				active = true
-				take(bySource[source][index])
+				entries := bySource[source]
+				take(entries[(round+index)%len(entries)])
 			}
 			if len(out) == limit {
 				break
@@ -385,12 +451,49 @@ func candidates(all, best []config, known map[string]bool, limit int) []config {
 		return strings.Compare(a.raw, b.raw)
 	})
 	for _, c := range other {
-		take(c)
 		if len(out) == limit {
 			break
 		}
+		take(c)
 	}
 	return out
+}
+
+func previousChecked(path string, current map[string]config) ([]config, error) {
+	b, err := os.ReadFile(path)
+	if errors.Is(err, os.ErrNotExist) {
+		return nil, nil
+	}
+	if err != nil {
+		return nil, err
+	}
+	var previous []config
+	for _, raw := range splitConfigs(string(b)) {
+		if c, ok := parseVLESS(raw, ""); ok {
+			if current, exists := current[c.key]; exists {
+				previous = append(previous, current)
+			}
+		}
+	}
+	return previous, nil
+}
+
+func validateSnapshot(path string, count, working, total int) error {
+	if working*2 < total {
+		return fmt.Errorf("only %d/%d sources fetched; keeping existing feeds", working, total)
+	}
+	b, err := os.ReadFile(path)
+	if errors.Is(err, os.ErrNotExist) {
+		return nil
+	}
+	if err != nil {
+		return err
+	}
+	previous := len(splitConfigs(string(b)))
+	if previous > 0 && count*2 < previous {
+		return fmt.Errorf("only %d/%d previous links remain; keeping existing feeds", count, previous)
+	}
+	return nil
 }
 
 func fetch(ctx context.Context, client *http.Client, raw string) (string, error) {
@@ -461,6 +564,7 @@ func run() error {
 	limit := flag.Int("limit", 350, "shortlist size")
 	probeLimit := flag.Int("probe-limit", 160, "maximum live probes")
 	workers := flag.Int("workers", 8, "concurrent source fetches and probes")
+	allowShrink := flag.Bool("allow-shrink", false, "allow a large feed drop")
 	root := flag.String("root", ".", "repository root")
 	links := flag.Bool("check-links", false, "check source and README links")
 	flag.Parse()
@@ -470,11 +574,7 @@ func run() error {
 	if *workers < 1 || *workers > 32 || *limit < 1 || *probeLimit < 1 {
 		return errors.New("invalid limit or workers")
 	}
-	sources, err := lines(filepath.Join(*root, "source/sources.txt"))
-	if err != nil {
-		return err
-	}
-	known, err := domains(filepath.Join(*root, "source/domains.txt"))
+	sources, err := lines(filepath.Join(*root, "sources/vless.txt"))
 	if err != nil {
 		return err
 	}
@@ -482,6 +582,10 @@ func run() error {
 		return errors.New("no sources")
 	}
 	client := &http.Client{Timeout: 12 * time.Second}
+	known, err := loadDomains(*root, client)
+	if err != nil {
+		return err
+	}
 	type result struct {
 		text string
 		err  error
@@ -522,6 +626,11 @@ func run() error {
 	if len(allMap) == 0 {
 		return errors.New("no valid VLESS; keeping existing files")
 	}
+	if !*allowShrink {
+		if err := validateSnapshot(filepath.Join(*root, "githubmirror/full.txt"), len(allMap), working, len(sources)); err != nil {
+			return err
+		}
+	}
 	var all, whitelist []config
 	for _, c := range allMap {
 		all = append(all, c)
@@ -542,7 +651,11 @@ func run() error {
 	best := shortlist(whitelist, known, *limit, 8)
 	var checked []config
 	if *check {
-		selected := candidates(all, best, known, *probeLimit)
+		previous, err := previousChecked(filepath.Join(*root, "githubmirror/internet.txt"), allMap)
+		if err != nil {
+			return err
+		}
+		selected := candidates(all, best, previous, known, *probeLimit, int(time.Now().UTC().Unix()/(9*60)))
 		checked, err = probe(*mihomo, selected, *workers)
 		if err != nil {
 			return err

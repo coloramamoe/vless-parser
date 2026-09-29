@@ -22,7 +22,11 @@ var (
 
 func checkLinks(root string) error {
 	const feedPrefix = "https://raw.githubusercontent.com/coloramamoe/vless-parser/main/githubmirror/"
-	sources, err := lines(filepath.Join(root, "source/sources.txt"))
+	sources, err := lines(filepath.Join(root, "sources/vless.txt"))
+	if err != nil {
+		return err
+	}
+	domains, err := lines(filepath.Join(root, "sources/domains.urls"))
 	if err != nil {
 		return err
 	}
@@ -30,7 +34,7 @@ func checkLinks(root string) error {
 	if err != nil {
 		return err
 	}
-	urls := append([]string(nil), sources...)
+	urls := append(append([]string(nil), sources...), domains...)
 	for _, raw := range externalURL.FindAllString(string(readme), -1) {
 		if !strings.Contains(raw, "/badge.svg") {
 			urls = append(urls, raw)

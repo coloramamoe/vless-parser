@@ -13,6 +13,8 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"regexp"
+	"strconv"
 	"strings"
 	"sync"
 	"time"
@@ -23,6 +25,17 @@ var probeURLs = []string{
 	"https://cp.cloudflare.com/generate_204",
 }
 
+var badProxy = regexp.MustCompile(`proxy ([0-9]+):`)
+
+func validReality(pbk, sid string) bool {
+	key, err := base64.RawURLEncoding.DecodeString(pbk)
+	if err != nil || len(key) != 32 || len(sid) > 16 {
+		return false
+	}
+	_, err = hex.DecodeString(sid)
+	return err == nil
+}
+
 func probeSupported(c config) bool {
 	switch c.network {
 	case "tcp", "ws", "grpc", "xhttp", "http", "h2":
@@ -30,14 +43,8 @@ func probeSupported(c config) bool {
 		return false
 	}
 	if c.security == "reality" {
-		key, err := base64.RawURLEncoding.DecodeString(c.pbk)
-		if err != nil || len(key) != 32 {
+		if !validReality(c.pbk, c.sid) {
 			return false
-		}
-		if c.sid != "" {
-			if _, err := hex.DecodeString(c.sid); err != nil || len(c.sid) > 16 {
-				return false
-			}
 		}
 	}
 	switch c.fp {
@@ -70,7 +77,11 @@ func proxyMap(c config, name string) map[string]any {
 	if alpn := c.query.Get("alpn"); alpn != "" {
 		m["alpn"] = strings.Split(alpn, ",")
 	}
-	if encoding := c.query.Get("packetencoding"); encoding != "" {
+	encoding := c.query.Get("packetencoding")
+	if encoding == "" {
+		encoding = c.query.Get("packetingencoding")
+	}
+	if encoding != "" {
 		m["packet-encoding"] = encoding
 	}
 	if encryption := c.query.Get("encryption"); encryption != "" {
@@ -93,22 +104,15 @@ func proxyMap(c config, name string) map[string]any {
 		}
 		m["grpc-opts"] = map[string]any{"grpc-service-name": service}
 	case "xhttp":
-		opts := map[string]any{"path": c.path}
+		opts := xhttpOptions(c.query.Get("extra"))
+		if c.path != "" {
+			opts["path"] = c.path
+		}
 		if c.hostHeader != "" {
 			opts["host"] = c.hostHeader
 		}
 		if mode := c.query.Get("mode"); mode != "" {
 			opts["mode"] = mode
-		}
-		if extra := c.query.Get("extra"); extra != "" {
-			var fields map[string]any
-			if json.Unmarshal([]byte(extra), &fields) == nil {
-				for k, v := range fields {
-					if _, exists := opts[k]; !exists {
-						opts[k] = v
-					}
-				}
-			}
 		}
 		m["xhttp-opts"] = opts
 	case "h2":
@@ -125,6 +129,39 @@ func proxyMap(c config, name string) map[string]any {
 		m["http-opts"] = opts
 	}
 	return m
+}
+
+func xhttpOptions(raw string) map[string]any {
+	opts := make(map[string]any)
+	var fields map[string]any
+	if json.Unmarshal([]byte(raw), &fields) != nil {
+		return opts
+	}
+	names := map[string]string{
+		"path": "path", "host": "host", "mode": "mode", "headers": "headers",
+		"noGRPCHeader": "no-grpc-header", "xPaddingBytes": "x-padding-bytes",
+		"xPaddingObfsMode": "x-padding-obfs-mode", "xPaddingKey": "x-padding-key",
+		"xPaddingHeader": "x-padding-header", "xPaddingPlacement": "x-padding-placement",
+		"xPaddingMethod": "x-padding-method", "uplinkHTTPMethod": "uplink-http-method",
+		"sessionIDPlacement": "session-placement", "sessionIDKey": "session-key",
+		"sessionIDTable": "session-table", "sessionIDLength": "session-length",
+		"seqPlacement": "seq-placement", "seqKey": "seq-key",
+		"uplinkDataPlacement": "uplink-data-placement", "uplinkDataKey": "uplink-data-key",
+		"uplinkChunkSize": "uplink-chunk-size", "scMaxEachPostBytes": "sc-max-each-post-bytes",
+		"scMinPostsIntervalMs": "sc-min-posts-interval-ms",
+	}
+	for key, value := range fields {
+		if name, ok := names[key]; ok {
+			if name == "sc-max-each-post-bytes" {
+				n, ok := value.(float64)
+				if !ok || n <= 0 {
+					continue
+				}
+			}
+			opts[name] = value
+		}
+	}
+	return opts
 }
 
 func probe(binary string, selected []config, workers int) ([]config, error) {
@@ -150,20 +187,9 @@ func probe(binary string, selected []config, workers int) ([]config, error) {
 		return nil, err
 	}
 	secret := hex.EncodeToString(secretBytes)
-	proxies := make([]map[string]any, len(selected))
-	for i, c := range selected {
-		proxies[i] = proxyMap(c, fmt.Sprintf("p%04d", i))
-	}
-	coreConfig := map[string]any{
-		"external-controller": address, "secret": secret, "log-level": "error",
-		"proxies": proxies,
-	}
-	b, err := json.Marshal(coreConfig)
-	if err != nil {
-		return nil, err
-	}
 	path := filepath.Join(dir, "config.json")
-	if err := os.WriteFile(path, b, 0600); err != nil {
+	selected, err = validateProxies(binary, dir, path, address, secret, selected)
+	if err != nil || len(selected) == 0 {
 		return nil, err
 	}
 	cmd := exec.Command(binary, "-d", dir, "-f", path)
@@ -244,6 +270,40 @@ func probe(binary string, selected []config, workers int) ([]config, error) {
 		}
 	}
 	return checked, nil
+}
+
+func validateProxies(binary, dir, path, address, secret string, selected []config) ([]config, error) {
+	for len(selected) > 0 {
+		proxies := make([]map[string]any, len(selected))
+		for i, c := range selected {
+			proxies[i] = proxyMap(c, fmt.Sprintf("p%04d", i))
+		}
+		b, err := json.Marshal(map[string]any{
+			"external-controller": address, "secret": secret, "log-level": "error",
+			"proxies": proxies,
+		})
+		if err != nil {
+			return nil, err
+		}
+		if err := os.WriteFile(path, b, 0600); err != nil {
+			return nil, err
+		}
+		output, err := exec.Command(binary, "-t", "-d", dir, "-f", path).CombinedOutput()
+		if err == nil {
+			return selected, nil
+		}
+		match := badProxy.FindStringSubmatch(string(output))
+		if len(match) != 2 {
+			return nil, fmt.Errorf("mihomo config check: %w: %s", err, strings.TrimSpace(string(output)))
+		}
+		index, convErr := strconv.Atoi(match[1])
+		if convErr != nil || index < 0 || index >= len(selected) {
+			return nil, fmt.Errorf("mihomo config check: %w: %s", err, strings.TrimSpace(string(output)))
+		}
+		fmt.Printf("probe: skipped invalid proxy %d\n", index)
+		selected = append(selected[:index], selected[index+1:]...)
+	}
+	return nil, nil
 }
 
 func probeOne(client *http.Client, base, secret, name, target string) (int, bool) {

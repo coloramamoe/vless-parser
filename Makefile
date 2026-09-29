@@ -1,10 +1,10 @@
 .PHONY: run dry test lint check-links
 
 run:
-	go run . --check
+	go run ./src --check
 
 dry:
-	go run . --dry-run
+	go run ./src --dry-run
 
 test:
 	go test ./...
@@ -14,4 +14,4 @@ lint:
 	test -z "$$(gofmt -l .)"
 
 check-links:
-	go run . --check-links
+	go run ./src --check-links
