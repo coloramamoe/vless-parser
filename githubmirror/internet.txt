@@ -2,13 +2,11 @@
 # profile-update-interval: 1
 # profile-web-page-url: https://github.com/coloramamoe/vless-parser
 # profile-content-type: vless
-# profile-count: 8
+# profile-count: 6
 
-vless://ebd1c0d6-7ff4-4b9f-8692-237517a27a64@tgfree.rush-server.com:443?security=reality&encryption=none&pbk=mza5Hn1aolSz65qu-UwvBP3oesxMe25r11o4nxvikF0&headerType=none&fp=chrome&type=tcp&flow=xtls-rprx-vision&sni=anyfile2file.com&sid=64c1fe36c7846400#🌐 [WL] Сервер 6
-vless://a3dcd62b-deb8-453a-8adf-efbc1464a527@196.240.125.251:8443?encryption=none&flow=xtls-rprx-vision&security=tls&sni=api-v1-6ac60b55.vmagnum.win&type=tcp&fp=edge#%F0%9F%87%B3%F0%9F%87%B1%20The%20Netherlands%20%7C%20%5B%2ACIDR%5D
-vless://a3dcd62b-deb8-453a-8adf-efbc1464a527@196.240.125.5:8443?encryption=none&flow=xtls-rprx-vision&security=tls&sni=api-v1-6ac60b55.vmagnum.win&type=tcp&fp=safari#%F0%9F%87%B3%F0%9F%87%B1%20The%20Netherlands%20%7C%20%5B%2ACIDR%5D
-vless://a3dcd62b-deb8-453a-8adf-efbc1464a527@nl.alpheratzz.org:8443?type=tcp&security=tls&sni=api-v1-6ac60b55.vmagnum.win&alpn=h2&encryption=none&flow=xtls-rprx-vision&fp=edge#%F0%9F%87%B3%F0%9F%87%B1%20The%20Netherlands%20%7C%20%F0%9F%8C%90%20%7C%20%5B%2ACIDR%5D
-vless://87fd990d-ca93-440a-bbd4-e8281c4a0910@31.77.109.35:443?encryption=none&security=reality&type=tcp&sni=d3-de1.cloud-cdn.xyz&flow=xtls-rprx-vision&fp=ios&pbk=SPyieysl8w1lo950icthB72kn_ElyJXkpCdKqmnjGEY&sid=494afdc75f8c2fa8#🇩🇪 [WL] Сервер 12
-vless://6f756511-7fc3-41ba-874b-8cdc8e1b225f@193.202.113.5:443?encryption=none&flow=xtls-rprx-vision&fp=firefox&pbk=65d6SIYIqiX-SN4vx_BnNiQJ8Lnr0HAgUKoT7WgWRgI&security=reality&sid=ee169e93d3c277a1&sni=edge-uk2.mystatic-cdn.ru&type=tcp#🇷🇺 [WL] Сервер 40
-vless://3f58af8e-7c91-424e-85c7-ec6913b7fc8f@45.128.78.84:443?encryption=none&flow=xtls-rprx-vision&security=reality&sni=sellflow.org&fp=firefox&pbk=SbVKOEMjK0sIlbwg4akyBg5mL5KZwwB-ed4eEE7YnRc&type=tcp&headerType=none#🇷🇺 [WL] Сервер 39
-vless://2c634977-584e-4e1f-b501-1b70c77a6743@78.159.250.84:2053?alpn=h2%2C%2Bhttp%2F1.1&encryption=none&extra=null&fp=firefox&host=summerculture.net&mode=auto&path=%2Fapi%2Fv1%2Fupload&security=tls&sni=summerculture.net&type=xhttp#%F0%9F%87%B7%F0%9F%87%BA%20VK%20%E2%80%94%20%2311
+vless://5d16ac22-6eea-426f-b778-6f4c2961faef@176.108.252.139:9881?encryption=none&fp=safari&mode=gun&pbk=Dfgu8Ey0M8Hz4gXGZAwQ3H9jLt2HByVsjAOTWiuKDB0&security=reality&serviceName=grpc-tunnel&sid=aabb&sni=dl.google.com&type=grpc#%F0%9F%87%A9%F0%9F%87%AA%20Germany%20%E2%80%94%20%2325
+vless://c53ea5e9-ed8b-4990-805d-7f1d6451426c@du-rov.secureservice.top:8443?security=reality&encryption=none&pbk=fSVfR9NB-6J6smrZlavi0GWd8JfDh0aXuEkKbtuFzUI&headerType=none&fp=chrome&type=tcp&flow=xtls-rprx-vision&sni=du-rov.secureservice.top&sid=3cbc3d737fb9c4af#🇷🇺 [WL] Сервер 7
+vless://6f756511-7fc3-41ba-874b-8cdc8e1b225f@193.202.113.5:443?security=reality&flow=xtls-rprx-vision&pbk=65d6SIYIqiX-SN4vx_BnNiQJ8Lnr0HAgUKoT7WgWRgI&sid=ee169e93d3c277a1&fp=firefox&sni=edge-uk2.mystatic-cdn.ru&type=tcp&headerType=none&host=edge-uk2.mystatic-cdn.ru&path=%2F&encryption=none#🇷🇺 [WL] Сервер 39
+vless://3f58af8e-7c91-424e-85c7-ec6913b7fc8f@45.128.78.84:443?encryption=none&flow=xtls-rprx-vision&security=reality&sni=sellflow.org&fp=firefox&pbk=SbVKOEMjK0sIlbwg4akyBg5mL5KZwwB-ed4eEE7YnRc&type=tcp&headerType=none#🇷🇺 [WL] Сервер 37
+vless://bf55376a-a3a0-480e-9317-afa32092a96a@141.98.85.88:443?type=tcp&headerType=none&security=reality&encryption=none&sni=www.jyu.fi&fp=firefox&pbk=hSCJ3zKX3Pb_-0EYSwUK7XHy2QqzVGWqoiVS9HKLjy8&sid=675a2ad9f7969dd7&flow=xtls-rprx-vision#🇫🇮 [WL] Сервер 30
+vless://1c332eae-7e02-4acd-996d-4eb3e652401c@prep.wwwinternetvideo.click:443?security=reality&encryption=none&pbk=uitO4Z8t9TplwwYaqwLqh5rfxDh_X8bOBiNuPbzvaEM&headerType=none&fp=chrome&type=tcp&flow=xtls-rprx-vision&sni=yandex.ru&sid=bbe46bd8f6b96839#🇩🇪 [WL] Сервер 10
