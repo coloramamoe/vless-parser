@@ -306,6 +306,8 @@ func score(c config, known map[string]bool) int {
 		v += 10
 	case "ws":
 		v += 7
+	case "reality":
+		v += 13	
 	default:
 		v -= 6
 	}
