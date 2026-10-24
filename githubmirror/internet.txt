@@ -2,22 +2,17 @@
 # profile-update-interval: 1
 # profile-web-page-url: https://github.com/coloramamoe/vless-parser
 # profile-content-type: vless
-# profile-count: 17
+# profile-count: 12
 
-vless://6845a59f-970b-4e1e-8e26-06a34ee663d6@185.98.63.6:8443?security=reality&encryption=none&pbk=SbVKOEMjK0sIlbwg4akyBg5mL5KZwwB-ed4eEE7YnRc&headerType=none&type=tcp&flow=xtls-rprx-vision&sni=apple.com&fp=chrome#🇹🇷 [WL] Сервер 45
+vless://6845a59f-970b-4e1e-8e26-06a34ee663d6@185.98.63.6:8443?security=reality&encryption=none&pbk=SbVKOEMjK0sIlbwg4akyBg5mL5KZwwB-ed4eEE7YnRc&headerType=none&fp=chrome&type=tcp&flow=xtls-rprx-vision&sni=apple.com#🇹🇷 [WL] Сервер 38
 vless://88c4ce99-31f1-4329-912d-2a3564b3d58b@45.9.118.177:8443?encryption=none&type=tcp&security=reality&pbk=SbVKOEMjK0sIlbwg4akyBg5mL5KZwwB-ed4eEE7YnRc&flow=xtls-rprx-vision&sni=apple.com&fp=firefox#🇷🇺 [WL] Сервер 164
-vless://d24e0961-dd20-4528-8796-2a974e79348e@193.160.141.2:8443?type=tcp&security=reality&flow=xtls-rprx-vision&fp=ios&pbk=SbVKOEMjK0sIlbwg4akyBg5mL5KZwwB-ed4eEE7YnRc&sni=apple.com&encryption=none#🇷🇺 [WL] Сервер 143
-vless://41a7af38-0bb1-4493-aa8d-634af0c2548b@82.29.36.250:443?type=tcp&security=reality&flow=xtls-rprx-vision&fp=chrome&pbk=09XPceP705hC-5sEDXDSLeL2eMOrF-mFISK8JaJ7q2g&sid=ac3342a709db&sni=aws.amazon.com&encryption=none#🇭🇰 [WL] Сервер 36
-vless://c8b3c1d7-4294-4f30-9e5b-e4693b64d518@185.86.145.142:443?encryption=none&fp=firefox&host=deliverya.online&path=%2Fadrws&security=tls&sni=deliverya.online&type=ws#🇵🇱 [WL] Сервер 145
+vless://d24e0961-dd20-4528-8796-2a974e79348e@193.160.141.2:8443?type=tcp&security=reality&flow=xtls-rprx-vision&fp=ios&pbk=SbVKOEMjK0sIlbwg4akyBg5mL5KZwwB-ed4eEE7YnRc&sni=apple.com&encryption=none#🇷🇺 [WL] Сервер 144
+vless://c8b3c1d7-4294-4f30-9e5b-e4693b64d518@185.86.145.142:443?alpn=http%2F1.1&encryption=none&fp=chrome&host=deliverya.online&path=%2Fadrws&security=tls&sni=deliverya.online&type=ws#🇵🇱 [WL] Сервер 77
+vless://c8b3c1d7-4294-4f30-9e5b-e4693b64d518@185.86.145.142:443?encryption=none&host=deliverya.online&path=%2Fadrws&security=tls&sni=deliverya.online&type=ws&fp=firefox#%F0%9F%87%BA%F0%9F%87%B8%20United%20States%20%7C%20%5B%2ACIDR%5D%20VK
 vless://c8b3c1d7-4294-4f30-9e5b-e4693b64d518@deliverya.online:443?encryption=none&type=ws&security=tls&sni=deliverya.online&alpn=http%2F1.1&path=%2Fadrws&host=deliverya.online&fp=android#%F0%9F%87%BA%F0%9F%87%B8%20United%20States%20%7C%20%5B%2ACIDR%5D%20VK
-vless://c8b3c1d7-4294-4f30-9e5b-e4693b64d518@deliverya.online:443?encryption=none&type=ws&security=tls&sni=deliverya.online&alpn=http%2F1.1&path=%2Fadrws&host=deliverya.online&fp=chrome#%F0%9F%87%BA%F0%9F%87%B8%20United%20States%20%7C%20%5B%2ACIDR%5D%20VK
-vless://32b5ca9b-3f81-4031-965d-e8b074216e8d@201.24.121.243:443?encryption=none&security=tls&sni=kk-ru24a1.testkknegr.online&alpn=h2&type=grpc&serviceName=vlgrpc&fp=chrome#%F0%9F%87%B7%F0%9F%87%BA%20Russia%20%7C%20%F0%9F%8C%90%20%7C%20%5B%2ACIDR%5D
-vless://32b5ca9b-3f81-4031-965d-e8b074216e8d@201.24.121.243:443?encryption=none&security=tls&sni=kk-ru24a1.testkknegr.online&alpn=h2&type=grpc&serviceName=vlgrpc&fp=edge#%F0%9F%87%B7%F0%9F%87%BA%20Russia%20%7C%20%F0%9F%8C%90%20%5B%2ACIDR%5D
-vless://32b5ca9b-3f81-4031-965d-e8b074216e8d@201.24.121.243:443?encryption=none&security=tls&sni=kk-ru24a1.testkknegr.online&alpn=h2&type=grpc&serviceName=vlgrpc&fp=ios#%F0%9F%87%B7%F0%9F%87%BA%20Russia%20%7C%20%F0%9F%8C%90%20%5B%2ACIDR%5D
-vless://569d1a08-a4b7-4751-89c9-ce57b4b6449f@81.222.148.118:443?encryption=none&flow=xtls-rprx-vision&fp=firefox&pbk=7TmWuqg4d5YLHzAT4me2YWFLI6Af7ysIxSEX2mnYhn0&security=reality&sid=ebb47e4bdf4085cf&sni=neero1.gorodokmedia.com&type=tcp#🇺🇸 [WL] Сервер 150
 vless://9ba53795-4356-40ab-8067-76ec2ae2a3d8@46.243.142.104:443?alpn=http%2F1.1&encryption=none&fp=firefox&host=santehdv.site&path=%2Fmedia%2Fstream%2FqUWu2oaFgxAw&security=tls&sni=santehdv.site&type=ws#%F0%9F%87%B7%F0%9F%87%BA%204vps.su%20%E2%80%94%20%2347
-vless://605dea9b-b485-45c9-af9b-cc2b0195023c@91.242.228.29:443?encryption=none&flow=xtls-rprx-vision&fp=firefox&pbk=Su5ULcRQKF-0DJIHZeTNEnXHBpyQtizmUrcNIYhZI0E&security=reality&sid=afee962d&sni=se1.mycloud1.org&type=tcp#🇸🇪 [WL] Сервер 126
-vless://605dea9b-b485-45c9-af9b-cc2b0195023c@se1.mycloud1.org:443?type=tcp&headerType=none&security=reality&encryption=none&sni=se1.mycloud1.org&fp=firefox&pbk=Su5ULcRQKF-0DJIHZeTNEnXHBpyQtizmUrcNIYhZI0E&sid=afee962d&flow=xtls-rprx-vision#🇸🇪 [WL] Сервер 127
-vless://30e52776-55ac-3cb4-8d36-e2910f07e2c3@62.105.220.106:443?type=tcp&security=tls&flow=xtls-rprx-vision&fp=chrome&sni=u695098u7dae9c0cs220.gogocs.xyz&host=7dae9c0cs220.gogocs.xyz&encryption=none#🇳🇱 [WL] Сервер 32
+vless://605dea9b-b485-45c9-af9b-cc2b0195023c@91.242.228.29:443?encryption=none&flow=xtls-rprx-vision&fp=firefox&pbk=Su5ULcRQKF-0DJIHZeTNEnXHBpyQtizmUrcNIYhZI0E&security=reality&sid=afee962d&sni=se1.mycloud1.org&type=tcp#🇸🇪 [WL] Сервер 124
+vless://30e52776-55ac-3cb4-8d36-e2910f07e2c3@62.105.220.106:443?type=tcp&security=tls&flow=xtls-rprx-vision&fp=chrome&sni=u695098u7dae9c0cs220.gogocs.xyz&host=7dae9c0cs220.gogocs.xyz&encryption=none#🇳🇱 [WL] Сервер 31
 vless://2c634977-584e-4e1f-b501-1b70c77a6743@81.94.148.232:2053?alpn=h2%2Chttp%2F1.1&encryption=none&extra=null&fp=firefox&host=windytrout.net&mode=auto&path=%2Fapi%2Fv1%2Fupload&security=tls&sni=windytrout.net&type=xhttp#%F0%9F%87%B7%F0%9F%87%BA%20VK%20%E2%80%94%20%2343
-vless://11aabba0-5fd1-4f15-8068-74c1a466cefc@193.163.203.170:443?type=tcp&security=reality&flow=xtls-rprx-vision&fp=firefox&pbk=GCCZ1ZZjB_nj7yxqFi22bIIWWr_G6rnWUzDcssN_40o&sid=b28db60d77c50b4f&sni=yandex.ru&encryption=none#🇮🇹 [WL] Сервер 12
+vless://2c634977-584e-4e1f-b501-1b70c77a6743@81.94.148.232:2053?type=xhttp&security=tls&fp=firefox&sni=windytrout.net&path=%2Fapi%2Fv1%2Fupload&host=windytrout.net&mode=auto&encryption=none#🇷🇺 [WL] Сервер 109
+vless://11aabba0-5fd1-4f15-8068-74c1a466cefc@193.163.203.170:443?type=tcp&security=reality&flow=xtls-rprx-vision&fp=chrome&pbk=GCCZ1ZZjB_nj7yxqFi22bIIWWr_G6rnWUzDcssN_40o&sid=b28db60d77c50b4f&sni=yandex.ru&packetEncoding=none&encryption=none#🇸🇪 [WL] Сервер 7
