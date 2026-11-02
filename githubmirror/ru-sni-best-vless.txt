@@ -2,7 +2,7 @@
 # profile-update-interval: 1
 # profile-web-page-url: https://github.com/coloramamoe/vless-parser
 # profile-content-type: vless
-# profile-count: 173
+# profile-count: 174
 
 vless://15041021-33ff-447e-bdd2-5a6f226f5ba2@de3.vpn-club-service.ru:443?type=tcp&security=reality&encryption=none&flow=xtls-rprx-vision&fp=chrome&pbk=yDPh2enztmRE8NH294bVNoILyZaQmZnH1gBvrd9RGQo&sid=a1b2c3d4&sni=help.max.ru#%F0%9F%87%A9%F0%9F%87%AA%20DE%20%7C%20%E2%80%94%20%7C%2021%20%7C%20%40ByeWhiteLists2
 vless://eb13c182-d224-43b9-a25d-5f5ca751ae93@de.xtraxobot.ru:8443?type=tcp&encryption=none&security=reality&pbk=WlaEmqzcpciVL0merjOOfZ-Eas4ZTGT2Bd5E3aJrN2c&fp=chrome&sni=cdn.s3.yandex.net&sid=63772b60&spx=%25252525252525252525252F&flow=xtls-rprx-vision#%F0%9F%87%A9%F0%9F%87%AA%20DE%20%7C%20%E2%80%94%20%7C%20466%20%7C%20%40ByeWhiteLists2
@@ -175,5 +175,6 @@ vless://aef9ff3f-9c4a-4c42-a0dd-e82709b4c36f@95.163.211.237:8080?headertype=none
 vless://aef9ff3f-9c4a-4c42-a0dd-e82709b4c36f@95.163.211.240:8080?headertype=none&pbk=Z84J2IelR9ch3k8VtlVhhs5ycBUlXA7wHBWcBrjqnAw&security=reality&sid=7dbf7d3233971d5c&sni=sso.passport.yandex.ru&type=tcp#849.%20VLESS%20%7C%20SNI%3A%20sso.passport.yandex.ru%20%7C%20CIDR%3A%20VK%20%7C%20TG%3A%20%40wlrustg
 vless://d7b4d5b3-2c2d-493c-9b83-f25e3f6771b2@45.129.176.34:6443?mode=auto&security=reality&encryption=none&pbk=sgFFdQvfeujBKh6g7N7klU_u0mKYlr800MFbko5FzUg&type=xhttp&sni=avatars.mds.yandex.net&sid=844352756c1fabba#825.%20VLESS%20%7C%20SNI%3A%20avatars.mds.yandex.net%20%7C%20CIDR%3A%20%3F%20%7C%20TG%3A%20%40wlrustg
 vless://3cd95e58-9f0a-47e1-9937-64a58e949aa5@176.12.79.242:443?flow=xtls-rprx-vision&pbk=6eN2NciEaZis5J4muRRqpfLQ1OglI3A8lNSTmAGo6Do&security=reality&sid=3c6fc84d&sni=stats.vk-portal.net&type=raw&fp=chrome&encryption=none#🇰🇿 [WL] Сервер 98
+vless://a7f73594-fcba-437e-9159-62a043e96ea1@51.250.45.45:443?encryption=none&flow=xtls-rprx-vision&fp=chrome&pbk=0FsVveXXSVSAOdFmO9gDCAqTLuXFUmIvOH4ynPCy3lw&security=reality&sid=56057acd033fa61d&sni=ya.ru&type=raw#%F0%9F%87%B8%F0%9F%87%AA%20Sweden%20%E2%80%94%20%2362
 vless://b81b4d1b-7f20-48f1-82dc-d24bef898cab@161.97.160.224:443?type=raw&security=reality&flow=xtls-rprx-vision&fp=chrome&pbk=33zaT3jHXjtynSQ0Ucw9bK92-XH2zolJmuIeZ1XyZB0&sid=e6&sni=passport.yandex.ru&encryption=none#🇫🇷 [WL] Сервер 22
 vless://633f424e-2b11-48da-a6b3-a849dd71456f@45.12.75.242:26424?type=raw&security=reality&fp=firefox&pbk=l8AubqcxQO-HRFJy4pZL1vbLOo-eXit69s-XulSELE0&sid=23103e1e&sni=ya.ru&encryption=none#🇷🇺 [WL] Сервер 23
