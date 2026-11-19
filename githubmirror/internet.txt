@@ -2,20 +2,14 @@
 # profile-update-interval: 1
 # profile-web-page-url: https://github.com/coloramamoe/vless-parser
 # profile-content-type: vless
-# profile-count: 15
+# profile-count: 9
 
-vless://a30903dc-1bf0-4be5-8b1b-603a3a56211c@88.216.214.159:443?encryption=none&fp=chrome&pbk=drl7nndYdfzZY1aQ0eUAWmNV0nsHig2uDnu9siy9biQ&security=reality&sid=a7c92e4b10d6f835&sni=api-svc-mgr.galioncc.com&type=tcp#🇸🇪 [WL] Сервер 20
-vless://27f26dee-9cf1-4cca-93f8-9ac23d311408@147.45.47.101:8443?type=tcp&security=reality&flow=xtls-rprx-vision&fp=firefox&pbk=SbVKOEMjK0sIlbwg4akyBg5mL5KZwwB-ed4eEE7YnRc&sid=6ba85179e30d4fc2&sni=apple.com&encryption=none#🇷🇺 [WL] Сервер 127
-vless://2ae0670d-0bdf-409e-9a55-4e970252d378@37.235.247.81:8443?type=tcp&security=reality&flow=xtls-rprx-vision&fp=firefox&pbk=SbVKOEMjK0sIlbwg4akyBg5mL5KZwwB-ed4eEE7YnRc&sid=6ba85179e30d4fc2&sni=apple.com&encryption=none#🇷🇺 [WL] Сервер 128
-vless://fad48ef5-444c-4035-bbbc-afbc141bb6ba@85.92.157.67:8443?type=xhttp&security=reality&sni=de.krabvpn.pro&pbk=1SldfhWqqF_Rg9QlPKQqufcHi5GhkxwcEV5HGyOy4Qg&sid=64ad711102f56ca2&fp=firefox&path=%2Fassets%2F6c0f3ad762cb7ff51b454076&mode=auto&encryption=none#🇩🇪 [WL] Сервер 11
-vless://7ee0bbc1-fd51-456d-b56b-1954b15958f6@81.94.148.61:8443?encryption=none&fp=chrome&mode=gun&pbk=DaIRouGSxxQDEv9WKRxD79b2Vt0fsw4yQOTeAmXUYCM&security=reality&serviceName=ads.x5.ru&sid=08&sni=gazeta-business.ru&type=grpc#%F0%9F%87%AB%F0%9F%87%AE%20Finland%20%E2%80%94%20%2318
-vless://67864856-8730-40cc-9e1a-a0df697d912b@85.92.157.67:6443?type=xhttp&security=reality&fp=firefox&pbk=RBQhVV7u-QBkQL79vHRE2tQEeR1SA8CJ9zI9i99XA24&sid=3bcbfe3856680516&sni=nl.krabvpn.pro&path=%2Fassets%2Fe19f8e871ca55b3d77d42ae7&mode=auto&encryption=none#🇳🇱 [WL] Сервер 8
-vless://a30903dc-1bf0-4be5-8b1b-603a3a56211c@88.216.60.73:443?type=tcp&security=reality&fp=chrome&pbk=drl7nndYdfzZY1aQ0eUAWmNV0nsHig2uDnu9siy9biQ&sid=a7c92e4b10d6f835&sni=ns-api-gw.galioncc.com&encryption=none#🇸🇪 [WL] Сервер 30
-vless://fad48ef5-444c-4035-bbbc-afbc141bb6ba@85.92.157.67:7443?encryption=none&type=xhttp&security=reality&sni=pl-origin.krabvpn.pro&pbk=NmMggGv5jmohnMmZytnLdenxmpNwa4P9E2PZW1EV8go&sid=5e25bf4462660ed8&fp=firefox&path=%2Fassets%2F7ae15be966a6bce1f00fa96a&mode=auto#🇸🇪 [WL] Сервер 7
-vless://fd90e601-a56c-42b8-aab7-aa02d26fcb04@168.113.143.5:443?flow=xtls-rprx-vision&security=tls&sni=rsk3.betust.net&fp=firefox#%F0%9F%87%BA%F0%9F%87%B8%20United%20States%20%5B%2ACIDR%5D
-vless://fd90e601-a56c-42b8-aab7-aa02d26fcb04@168.113.143.5:443?flow=xtls-rprx-vision&security=tls&sni=rsk3.betust.net&fp=ios#%F0%9F%87%BA%F0%9F%87%B8%20United%20States%20%5B%2ACIDR%5D
-vless://26156d2f-6cde-455e-a5ac-372d989161f1@78.24.92.220:443?type=xhttp&security=tls&fp=firefox&sni=tg1.cdnphotos.org&path=%2Fapi%2Fv1%2F&mode=auto&encryption=none#🇷🇺 [WL] Сервер 38
-vless://38308ff1-5aa9-494f-a25a-0f2870d56b3e@201.51.12.98:443?encryption=none&fp=chrome&security=tls&serviceName=mobile.api.Event&sni=vps3.nemnogogo.com&type=grpc#🇷🇺 [WL] Сервер 70
-vless://1f8cf47a-b66a-4916-979f-26edfcf44eea@185.95.231.156:443?type=tcp&security=reality&flow=xtls-rprx-vision&fp=chrome&pbk=8eXftARun6KH38UZhuqIfPR1VF2DLS9RMBZEnF5k6To&sid=a3a578ab&sni=www.apple.com&encryption=none#🇺🇸 [WL] Сервер 21
-vless://dbf3f074-3b18-43f3-b82a-debd8c879c69@185.246.155.91:10103?type=tcp&security=reality&flow=xtls-rprx-vision&fp=chrome&pbk=obQkp5VlQpnlt1hRLQ3VfHISYiiISZJyJZAMaIdjCko&sid=6859f5b59e55aa30&sni=www.apple.com&encryption=none#🇹🇷 [WL] Сервер 19
-vless://dbf3f074-3b18-43f3-b82a-debd8c879c69@216.152.155.189:443?security=reality&encryption=none&pbk=F5BVp5XkY93lll_Ju34lOIE6A1-dx16_frY6eu9Nzzk&headerType=none&fp=chrome&type=tcp&flow=xtls-rprx-vision&sni=www.apple.com&sid=fecf2b55bb11bb0d#🇺🇸 [WL] Сервер 26
+vless://a30903dc-1bf0-4be5-8b1b-603a3a56211c@88.216.214.159:443?encryption=none&fp=chrome&pbk=drl7nndYdfzZY1aQ0eUAWmNV0nsHig2uDnu9siy9biQ&security=reality&sid=a7c92e4b10d6f835&sni=api-svc-mgr.galioncc.com&type=tcp#🇸🇪 [WL] Сервер 35
+vless://2ae0670d-0bdf-409e-9a55-4e970252d378@37.235.247.81:8443?type=tcp&security=reality&flow=xtls-rprx-vision&fp=firefox&pbk=SbVKOEMjK0sIlbwg4akyBg5mL5KZwwB-ed4eEE7YnRc&sid=6ba85179e30d4fc2&sni=apple.com&encryption=none#🇷🇺 [WL] Сервер 141
+vless://a30903dc-1bf0-4be5-8b1b-603a3a56211c@88.216.211.36:443?encryption=none&security=reality&sni=de8.galioncc.com&fp=chrome&pbk=drl7nndYdfzZY1aQ0eUAWmNV0nsHig2uDnu9siy9biQ&sid=c4e7a1902b8d6f35&type=tcp&headerType=none#🇩🇪 [WL] Сервер 34
+vless://a30903dc-1bf0-4be5-8b1b-603a3a56211c@88.216.60.73:443?encryption=none&type=tcp&security=reality&sni=ns-api-gw.galioncc.com&pbk=drl7nndYdfzZY1aQ0eUAWmNV0nsHig2uDnu9siy9biQ&sid=a7c92e4b10d6f835&fp=chrome#🇸🇪 [WL] Сервер 37
+vless://03edf06e-25fc-0001-a85c-b091a6019f50@185.151.243.186:443?encryption=none&type=tcp&security=tls&sni=piodr-ru-74sel.my-fade.cloud&fp=edge#%F0%9F%8C%90%20Anycast-IP%20%7C%20%F0%9F%87%A8%F0%9F%87%BF%20%F0%9F%87%B5%F0%9F%87%B1%20%7C%20%5B%2ACIDR%5D
+vless://1f8cf47a-b66a-4916-979f-26edfcf44eea@185.95.231.156:443?type=tcp&security=reality&flow=xtls-rprx-vision&fp=chrome&pbk=8eXftARun6KH38UZhuqIfPR1VF2DLS9RMBZEnF5k6To&sid=a3a578ab&sni=www.apple.com&encryption=none#🇺🇸 [WL] Сервер 36
+vless://dbf3f074-3b18-43f3-b82a-debd8c879c69@185.246.155.91:10103?type=tcp&security=reality&flow=xtls-rprx-vision&fp=chrome&pbk=obQkp5VlQpnlt1hRLQ3VfHISYiiISZJyJZAMaIdjCko&sid=6859f5b59e55aa30&sni=www.apple.com&encryption=none#🇹🇷 [WL] Сервер 32
+vless://dbf3f074-3b18-43f3-b82a-debd8c879c69@216.152.155.189:443?security=reality&encryption=none&pbk=F5BVp5XkY93lll_Ju34lOIE6A1-dx16_frY6eu9Nzzk&headerType=none&fp=chrome&type=tcp&flow=xtls-rprx-vision&sni=www.apple.com&sid=fecf2b55bb11bb0d#🇺🇸 [WL] Сервер 40
+vless://d55c6261-bc30-0001-8cae-fe82530e4c34@168.113.254.183:443?security=tls&sni=xykmh-ru-70sb.my-fade.cloud&fp=edge#%F0%9F%87%B3%F0%9F%87%B4%20Norway%20%7C%20%5B%2ACIDR%5D
