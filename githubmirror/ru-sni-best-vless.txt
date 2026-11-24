@@ -2,7 +2,7 @@
 # profile-update-interval: 1
 # profile-web-page-url: https://github.com/coloramamoe/vless-parser
 # profile-content-type: vless
-# profile-count: 114
+# profile-count: 115
 
 vless://15041021-33ff-447e-bdd2-5a6f226f5ba2@de3.vpn-club-service.ru:443?type=tcp&security=reality&encryption=none&flow=xtls-rprx-vision&fp=chrome&pbk=yDPh2enztmRE8NH294bVNoILyZaQmZnH1gBvrd9RGQo&sid=a1b2c3d4&sni=help.max.ru#%F0%9F%87%A9%F0%9F%87%AA%20DE%20%7C%20%E2%80%94%20%7C%2021%20%7C%20%40ByeWhiteLists2
 vless://eb13c182-d224-43b9-a25d-5f5ca751ae93@de.xtraxobot.ru:8443?type=tcp&encryption=none&security=reality&pbk=WlaEmqzcpciVL0merjOOfZ-Eas4ZTGT2Bd5E3aJrN2c&fp=chrome&sni=cdn.s3.yandex.net&sid=63772b60&spx=%25252525252525252525252F&flow=xtls-rprx-vision#%F0%9F%87%A9%F0%9F%87%AA%20DE%20%7C%20%E2%80%94%20%7C%20466%20%7C%20%40ByeWhiteLists2
@@ -56,6 +56,7 @@ vless://606b5468-768e-4854-9625-526e2c758059@78.159.246.134:443?encryption=none&
 vless://6408b7b0-2527-4d9f-b361-928222ec624f@130.193.59.133:443?security=reality&encryption=none&pbk=_CjW0Khlrr5z5oc9Oy6-w2ZEanz-zMBktVn5EOX9oTM&headerType=none&fp=chrome&type=tcp&flow=xtls-rprx-vision&sni=yandex.ru&sid=f32140952ba18e18#264.%20%F0%9F%87%AE%F0%9F%87%B9%20VLESS%20%7C%20SNI%3A%20yandex.ru%20%7C%20CIDR%3A%20%3F%20%7C%20TG%3A%20%40wlrustg
 vless://658786e5-f302-48e2-b321-f4dc6da2a398@185.241.195.144:443?encryption=none&flow=xtls-rprx-vision&security=reality&sni=m.vk.com&fp=chrome&pbk=HFJMqU64bwcPSJ4E0sRshfVNjweeQxvAgRP_5OOxqHE&sid=048beb293406db13&type=tcp&headerType=none#95.%20%F0%9F%87%B3%F0%9F%87%B1%20VLESS%20%7C%20SNI%3A%20m.vk.com%20%7C%20CIDR%3A%20VK%20%7C%20TG%3A%20%40wlrustg
 vless://6b0ea369-4b34-49d2-80ce-735e87098503@51.250.86.118:443?encryption=none&flow=xtls-rprx-vision&fp=chrome&pbk=WHU2mY4_UA_PjfWOcN_MUhJoy76pY7SHF1GE6JbGe00&security=reality&sid=cba5f8297ee5c9&sni=event.yandex.ru&type=tcp#58.%20%F0%9F%87%AB%F0%9F%87%AE%20VLESS%20%7C%20SNI%3A%20event.yandex.ru%20%7C%20CIDR%3A%20Yandex%20%7C%20TG%3A%20%40wlrustg
+vless://918b1fa3-3e63-4c8d-87a4-8f635ffb7cd3@147.45.98.78:443?type=tcp&security=reality&flow=xtls-rprx-vision&fp=firefox&pbk=C8jwxMahtF-BpgtauR6I6dVXCc0X8VM9nbFxDQ3LzF0&sid=b4&sni=www.gosuslugi.ru&encryption=none#🇷🇺 [WL] Сервер 47
 vless://9a5a05ac-2f77-494c-9ede-e1d594893d5d@217.16.16.51:8443?encryption=none&flow=xtls-rprx-vision&fp=chrome&pbk=FvkCWahes3-gOmkCRi5zSTmdThrq-FBemHcUwP8Jo0c&security=reality&sid=da51e5738b4e573b&sni=yandex.ru&type=tcp#60.%20%F0%9F%87%A9%F0%9F%87%AA%20VLESS%20%7C%20SNI%3A%20yandex.ru%20%7C%20CIDR%3A%20%3F%20%7C%20TG%3A%20%40wlrustg
 vless://a6675384-654c-4ec1-8303-57b86e2f440a@95.163.215.196:443?flow=xtls-rprx-vision&encryption=none&type=tcp&security=reality&fp=chrome&sni=eh.vk.ru&pbk=LHcascaxOxugVSALgsYx46nB-vuhT7ANOneu0xb6SzQ&sid=bc550ff9b9d9442d#626.%20%F0%9F%87%A6%F0%9F%87%B9%20VLESS%20%7C%20SNI%3A%20eh.vk.ru%20%7C%20CIDR%3A%20VK%20%7C%20TG%3A%20%40wlrustg
 vless://afffbafe-881f-4a06-bc22-d1a49121ba36@178.154.253.80:443?security=reality&encryption=none&pbk=7zd9mJilgjOrg_ohtw23Vmio-pdnYqeP_r-kiWt87Cg&headerType=none&fp=chrome&type=tcp&flow=xtls-rprx-vision&sni=yandex.ru&sid=8ba12e75110b7a9c#326.%20%F0%9F%87%AD%F0%9F%87%BA%20VLESS%20%7C%20SNI%3A%20yandex.ru%20%7C%20CIDR%3A%20Yandex%20%7C%20TG%3A%20%40wlrustg
